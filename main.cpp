@@ -2,7 +2,7 @@
 using namespace std;
 
 #define QNT_SIMBOLO 30
-#define LINHA 8
+#define LINHA 30
 #define COLUNA 14
 
 string simbolos[QNT_SIMBOLO];
@@ -13,7 +13,6 @@ void gerar_matriz_automato_estados();
 int retorna_coluna_simbolo(string);
 
 short n = 0;
-
 
 int main () {
 
@@ -95,19 +94,27 @@ void gerar_matriz_automato_estados() {
 	char tokens[5]; //faz um loop na string de cada linha (letra por letra)
 	char estado = 'A'; 
 
+	//linha 0 -> espaço em branco da linha dos símbolos da linguagem
+	//linha 1 -> "S estado inicial"
+	short contador_linha_livre = 2;
+	
 	while(fgets(linha, 5, arquivo)) {
 
 		sscanf(linha, "%s", tokens); //copia conteúdo da linha para o "tokens"
-	    
-		for (int i = 0; i < strlen(tokens); i++) {
+
+		short tamanho_token = strlen(tokens);
+		string estado_anterior;
+		short linha_estado_anterior = 0;
+		
+		for (int i = 0; i < tamanho_token; i++) {
 
 			//convert char em string
 			string s(1, tokens[i]); 
 			string novo_estado(1, estado);
+			short coluna = retorna_coluna_simbolo(s);
 			
 			/* se for o 1º caracter do token, deve-se gerar uma transição pelo estado S */
 			if (i == 0) {
-				short coluna = retorna_coluna_simbolo(s);
 
 				// evitar os tracinhos ou vígulas em lugares indevidos
 				if (matriz_automato[1][coluna] == "-") {
@@ -115,20 +122,30 @@ void gerar_matriz_automato_estados() {
 				}
 
 				if (matriz_automato[1][coluna].size() == 0) {
-					matriz_automato[1][coluna].append(novo_estado);
+					matriz_automato[1][coluna].append(novo_estado);	
 				}
 				else {
 					matriz_automato[1][coluna].append("," + novo_estado);
-				}
-				
-				
-				//string aux = 
-				
-				//coloca na transição de S uma transição pelo token encontrado
-				//matriz_automato[1][coluna] = estado;
-				estado++;
+				}				
 			}
+			// faz a transição de um não terminal para um novo estado
+			else {
+				matriz_automato[linha_estado_anterior][coluna] = novo_estado;
+			}
+			
+			estado_anterior = novo_estado;
+			estado++;
+			
+			// pular o estado "S" porque já é usado como início
+			if (estado == 'S') { estado++; }
+			
+			matriz_automato[contador_linha_livre][0] = estado_anterior;
+			linha_estado_anterior = contador_linha_livre;
+			contador_linha_livre++;
 		}
+
+		// reconhecou o token, e é um estado de aceitação
+		matriz_automato[linha_estado_anterior][0].append("*");
 	}
 	fclose(arquivo);
 }
