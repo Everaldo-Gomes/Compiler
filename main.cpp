@@ -12,7 +12,7 @@ int main () {
 
 
 	// Análise lexica da linguagem
-	Analizador_lexico Analize_lexica(Automato.matriz_automato);
+	Analizador_lexico Analize_lexica(Automato.matriz_automato, Automato.identificador_tokens);
     
     
 	return 0;

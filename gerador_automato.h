@@ -13,6 +13,7 @@ public:
 
 	Gerador_automato();
 	string matriz_automato[LINHA][COLUNA];
+	string identificador_tokens[QNT_SIMBOLO];
 
 private:
 
@@ -24,7 +25,6 @@ private:
 	void gerar_matriz_automato_estados_tokens();
 	void gerar_matriz_automato_estados_GLC();
 	int retorna_coluna_simbolo(string);
-	string identificador_tokens[QNT_SIMBOLO];
 	void adicionar_estado_erro();
 	void cria_cabecalho_automato();
 
