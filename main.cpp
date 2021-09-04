@@ -3,16 +3,18 @@ using namespace std;
 
 #define QNT_SIMBOLO 30
 #define LINHA 30
-#define COLUNA 14
+#define COLUNA 18
 
 string simbolos[QNT_SIMBOLO];
 string matriz_automato[LINHA][COLUNA];	
 void gerar_simbolo_token();
 void gerar_simbolo_glc();
-void gerar_matriz_automato_estados();
+void gerar_matriz_automato_estados_tokens();
+void gerar_matriz_automato_estados_GLC();
 int retorna_coluna_simbolo(string);
 
-short n = 0;
+short coluna_livre_automato = 0;
+short linha_livre_automato = 0;
 
 int main () {
 
@@ -24,9 +26,13 @@ int main () {
 	}
 
 	gerar_simbolo_token();
-	gerar_matriz_automato_estados();
-	//gerar_simbolo_glc();
+	gerar_simbolo_glc();
+	
+	gerar_matriz_automato_estados_tokens();
+	gerar_matriz_automato_estados_GLC();
 
+	
+	
 	
 	/* mostra a matriz automato */
 	for(int i = 0; i < LINHA; i++) {
@@ -57,7 +63,7 @@ void gerar_simbolo_token() {
 			/* procura se o simbolo já existe no array */
 			int salva_novo_estado = 1;
 				
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < coluna_livre_automato; i++) {
 				if (simbolos[i] == ch) {
 					salva_novo_estado = 0;
 					break;
@@ -66,8 +72,8 @@ void gerar_simbolo_token() {
 
 			/* salva o simbolo se não existir no array */
 			if (salva_novo_estado) {
-				simbolos[n] = ch;
-				n++;
+				simbolos[coluna_livre_automato] = ch;
+				coluna_livre_automato++;
 			}
 		}
 	}
@@ -76,7 +82,7 @@ void gerar_simbolo_token() {
 }
 
 
-void gerar_matriz_automato_estados() {
+void gerar_matriz_automato_estados_tokens() {
 
 	// gera 1ª linha do autômoto
 	for(int i = 1; i < COLUNA; i++) {
@@ -102,6 +108,11 @@ void gerar_matriz_automato_estados() {
 
 		sscanf(linha, "%s", tokens); //copia conteúdo da linha para o "tokens"
 
+		// interromper leitura do arquivo quando chegar na GLC
+		if (tokens[0] == '<') {
+			break;
+		}		
+		
 		short tamanho_token = strlen(tokens);
 		string estado_anterior;
 		short linha_estado_anterior = 0;
@@ -144,11 +155,60 @@ void gerar_matriz_automato_estados() {
 			contador_linha_livre++;
 		}
 
+		//diz qual vai ser a próxima linha no autômato a ser usada
+		linha_livre_automato = contador_linha_livre;
+		
 		// reconhecou o token, e é um estado de aceitação
 		matriz_automato[linha_estado_anterior][0].append("*");
 	}
 	fclose(arquivo);
 }
+
+
+void gerar_simbolo_glc() {
+
+	FILE* arquivo = fopen("arquivo.txt", "r");
+	char ch;
+	
+	while (!feof(arquivo)) {
+
+		// caracter lido do arquivo
+		ch = fgetc(arquivo);
+
+		// criar uma cópia do que está no ch que é character, e salva no aux como string
+		// porque para o vetor simbolo é preciso passar uma string
+		string aux(1, ch); 
+
+		// quando lê a GLC, se for números ou letras minúsculas adiciona aos símbolos da
+		// linguagem
+		
+		if (isdigit(ch) || islower(ch)) {			
+
+			/* procura se o simbolo já existe no array */
+			int salva_novo_estado = 1;
+			
+			for (int i = 0; i < coluna_livre_automato; i++) {
+				if (simbolos[i] == aux) {
+					salva_novo_estado = 0;
+					break;
+				}
+			}
+
+			/* salva o simbolo se não existir no array */
+			if (salva_novo_estado) {
+				simbolos[coluna_livre_automato] = aux;
+				coluna_livre_automato++;
+			}
+		}
+	}
+}
+
+
+void gerar_matriz_automato_estados_GLC() {
+
+
+}
+
 
 int retorna_coluna_simbolo(string s) {
 
