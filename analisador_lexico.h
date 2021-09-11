@@ -4,6 +4,8 @@
 #include <bits/stdc++.h>
 #include "func.h"
 
+#define ESTADO_INICIAL "S"
+
 using namespace std;
 
 class Analizador_lexico : public Objeto_base {
@@ -13,7 +15,9 @@ public:
 	Analizador_lexico(string matriz_automato[LINHA][COLUNA], string identificador_tokens[QNT_SIMBOLO]);
 
 private:
-	
+
+	string fita_saida[100]; //MUDAR DEPOIS
+	string fita_erro[100];
 	string automato[LINHA][COLUNA];
 	string identificadores[QNT_SIMBOLO];
 	short retorna_coluna_simbolo(string s);

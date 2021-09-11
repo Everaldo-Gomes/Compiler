@@ -14,7 +14,7 @@ void Gerador_automato::criar_matriz() {
 	/* inicializa a matriz_automato */
 	for(int i = 0; i < LINHA; i++) {
         for(int j = 0; j < COLUNA; j++) {
-            matriz_automato[i][j] = "-";
+            matriz_automato[i][j] = sinal_erro;
         }
 	}
 	
@@ -113,7 +113,7 @@ void Gerador_automato::gerar_matriz_automato_estados_tokens() {
 
 		for (int i = 0; i < tamanho_token; i++) {
 
-			//convert char em string
+			//converte char em string
 			string s(1, tokens[i]); 
 			string novo_estado(1, estado);
 			short coluna = retorna_coluna_simbolo(s);
@@ -122,7 +122,7 @@ void Gerador_automato::gerar_matriz_automato_estados_tokens() {
 			if (i == 0) {
 
 				// evitar os tracinhos ou vígulas em lugares indevidos
-				if (matriz_automato[1][coluna] == "-") {
+				if (matriz_automato[1][coluna] == sinal_erro) {
 					matriz_automato[1][coluna] = "";	
 				}
 
@@ -252,5 +252,5 @@ int Gerador_automato::retorna_coluna_simbolo(string s) {
 
 void Gerador_automato::adicionar_estado_erro() {
 
-	matriz_automato[0][18] = "$";
+	matriz_automato[0][18] = "#";
 }
