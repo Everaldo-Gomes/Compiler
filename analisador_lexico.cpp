@@ -2,6 +2,9 @@
 #include "analisador_lexico.h"
 using namespace std;
 
+// fazer
+// exibir lista erro e fita saida
+
 
 Analizador_lexico::Analizador_lexico(string matriz_automato[LINHA][COLUNA], string identificador_tokens[QNT_SIMBOLO]) {
 
@@ -41,46 +44,55 @@ void Analizador_lexico::analise_lexica() {
 		strcpy(tokens,linha); //ajuste
 		
 		short tamanho_token = strlen(tokens);
-		string caracter_atual;
 		string token_atual = ""; //usada para mostrar o erro
-		
+
+		//percorre a linha lida
 		for (int i = 0; i < tamanho_token; i++) {
 
-			caracter_atual = tokens[i];
+			string caracter_atual(1, tokens[i]);
 			token_atual += caracter_atual;
 			
 			// procurar na matriz a posição do caracter e estado
 			short posicao_caracter_coluna = retorna_coluna_simbolo(caracter_atual);
 			short posicao_estado_linha = retorna_linha_estado(estado_corrente);
 			
+			//chegou final do token
 			if (caracter_atual != " " && caracter_atual != "\t" && caracter_atual != "\n") {
 
-
+				//confere se o estado tem virgula (mais de uma transição por um token)
 				size_t found = estado_corrente.find(",");
-				//if (found != string::npos)
-
 
 				// quando se tem mais de um estado
-				//ERROR
 				if (found != string::npos) {
-					
+				    	
 					string estado = "";
-					
-					for (int i = 0; i < estado_corrente.size(); i++) {
 
-						cout << strlen(linha) << " "
-							 << strlen(tokens) << " " << estado_corrente << " " << linha[i] << endl;
-						
-						if (estado_corrente[i] != ',') {
-							estado += estado_corrente[i];
+					//separa os estados que tem vírgula, Ex: I,N verifica o I e depois o N
+					for (int j = 0; j < estado_corrente.size(); j++) {
+
+						//pega todo o estado Ex AA...., e para na virgula
+						if (estado_corrente[j] != ',') {
+							estado += estado_corrente[j];
 						}
-						if (estado_corrente[i] == ',' || i == estado_corrente.size()-1) {
-							
-							string s(1, linha[i+1]); 
-							
-							short cl = retorna_coluna_simbolo(s);
+
+						// se chegou na vírgula ou no final do estado foi porque
+						// encontrou um estado
+						if (estado_corrente[j] == ',' || j == estado_corrente.size()-1) {
+
+							// vê se o token atual possui uma transição por alguma dos
+							// estados encontrados
+							string ss(1, linha[i]);
+
+							// encontra posicao automato do estado de erro ou aceitação
+							short cl = retorna_coluna_simbolo(ss);
 							short li = retorna_linha_estado(estado);
-							cout << cl << " " << li << " <-- " << s << endl;
+
+							// é estado correto para seguir para outro estado
+							if (automato[li][cl] != "$") {
+								estado_corrente = automato[li][cl];
+								break;
+							}
+							
 							estado = "";
 						}
 					}
@@ -94,7 +106,7 @@ void Analizador_lexico::analise_lexica() {
 
 			// verifica aceitação do token (se é separador ou não)
 
-			if (caracter_atual == " ") {
+			if (caracter_atual == " " || caracter_atual == "\n") {
 				
 				// se for aceiteação, adiciona na fita de saída
 				if (verifica_estado_aceitacao(estado_corrente)) {
@@ -106,7 +118,6 @@ void Analizador_lexico::analise_lexica() {
 					
 					fita_saida[contador_fita_saida] = sinal_erro;
 					fita_erro[contador_fita_erro].append("Error na linha " + to_string(contador_linha) + " próximo à " + token_atual);
-					//cout << fita_erro[contador_fita_erro] << endl;
 					contador_fita_erro++;
 					token_atual = "";
 				}
