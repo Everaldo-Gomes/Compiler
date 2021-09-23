@@ -2,10 +2,13 @@
 #include "analisador_lexico.h"
 using namespace std;
 
-// fazer
-// exibir lista erro e fita saida
 
+#include <boost/algorithm/string.hpp>
+#include <iostream>
+using namespace boost::algorithm;
+using namespace std;
 
+// construtor
 Analizador_lexico::Analizador_lexico(string matriz_automato[LINHA][COLUNA], string identificador_tokens[QNT_SIMBOLO]) {
 
 	// Faz uma cópia da matriz_automato para uma chamada "automato"
@@ -21,9 +24,17 @@ Analizador_lexico::Analizador_lexico(string matriz_automato[LINHA][COLUNA], stri
 	
 	for(int i = 0; i < QNT_SIMBOLO; i++) {
 		identificadores[i] = identificador_tokens[i];
+		//cout << i << " " << identificadores[i] << "\n";
 	}
 
 	analise_lexica();
+
+	cout << "Exibição fita saída: \n";
+	exibir_fita_saida();
+
+	cout << "\n\nExibição fita Erro: \n";
+	exibir_fita_erro();
+	cout << "\n";
 }
 
 
@@ -43,7 +54,7 @@ void Analizador_lexico::analise_lexica() {
 		sscanf(linha, "%s", tokens); //copia conteúdo da linha para o "tokens"
 		strcpy(tokens,linha); //ajuste
 		
-		short tamanho_token = strlen(tokens);
+		short tamanho_token = strlen(tokens), token_id;
 		string token_atual = ""; //usada para mostrar o erro
 
 		//percorre a linha lida
@@ -106,24 +117,42 @@ void Analizador_lexico::analise_lexica() {
 
 			// verifica aceitação do token (se é separador ou não)
 
+			trim(token_atual); //remove espaço em branco
+			
 			if (caracter_atual == " " || caracter_atual == "\n") {
 				
 				// se for aceiteação, adiciona na fita de saída
 				if (verifica_estado_aceitacao(estado_corrente)) {
-					fita_saida[contador_fita_saida] = estado_corrente;
-				}
 
-				//caso de erro
-				else { 
+					// encontra o identificador do token para caso de aceitação
+					token_id = retorna_id_token(token_atual);
+
+					// se não encontrou (-1) então é numero ou variável
+					if (token_id == -1 && isdigit(token_atual[0])) { // se for dígito é numero
+
+						token_id = retorna_id_token("numeros");
+					}
+					else if (token_id == -1) {
+						token_id = retorna_id_token("variaveis"); // se não, é variável
+					}
 					
-					fita_saida[contador_fita_saida] = sinal_erro;
-					fita_erro[contador_fita_erro].append("Error na linha " + to_string(contador_linha) + " próximo à " + token_atual);
-					contador_fita_erro++;
-					token_atual = "";
+					fita_saida[contador_fita_saida] = to_string(token_id);
+					// valor passador anteriormente: "estado_corrente"
 				}
 				
+				// encontra o identificador do token para caso de erro
+				else { 
+					
+					token_id = retorna_id_token("Error");
+					fita_saida[contador_fita_saida] = to_string(token_id);
+					fita_erro[contador_fita_erro].append("Error na linha " + to_string(contador_linha) + ". Token inválido: " + token_atual);
+					contador_fita_erro++;
+				}
+
+				token_atual = "";
 				contador_fita_saida++;
-			    
+				token_id = 0;
+				
 				// alterar o estado corrente pra S
 				estado_corrente = ESTADO_INICIAL;
 			}
@@ -131,7 +160,52 @@ void Analizador_lexico::analise_lexica() {
 		contador_linha++;
 	}
 
+	// adicionando o símbolo de final de sentença
+	fita_saida[contador_fita_saida] = "$";
+
 	fclose(arquivo);
+}
+
+
+void Analizador_lexico::exibir_fita_erro() {
+
+	int len = sizeof fita_erro / sizeof fita_erro[0];;
+	
+	for (int i = 0; i < len; i++) {
+		
+		if (fita_erro[i] != "") {
+			cout << fita_erro[i] << "\n";
+		}
+	}
+}
+
+void Analizador_lexico::exibir_fita_saida() {
+
+	int len = sizeof fita_saida / sizeof fita_saida[0];;
+	
+	for (int i = 0; i < len; i++) {
+ 
+		if (fita_saida[i] != "") {
+			trim(fita_saida[i]);
+			cout << fita_saida[i] << " ";
+		}
+	}
+}
+
+
+short Analizador_lexico::retorna_id_token(string s) {
+
+	short posicao = -1;
+	int len = sizeof identificadores / sizeof identificadores[0];;
+	
+	for (int i = 1; i < len; i++) {
+		if (identificadores[i] == s) {
+			posicao = i;
+			break;
+		}
+	}
+	
+	return posicao;
 }
 
 
@@ -185,3 +259,7 @@ short Analizador_lexico::verifica_estado_aceitacao(string s) {
 
 	return eh_aceitacao;
 }
+
+// se x enq 100 is
+// 	y = x
+// fs

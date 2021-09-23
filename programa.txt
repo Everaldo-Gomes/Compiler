@@ -1,3 +1,7 @@
-se x enq 100 is
-	y = x
-fs
+enq x ma y ie
+	se yy me is
+		yx = 01 * xx
+		aux = 10
+		aux = bbb			
+	fs
+fe
