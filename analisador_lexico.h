@@ -13,11 +13,11 @@ class Analizador_lexico : public Objeto_base {
 public:
 	
 	Analizador_lexico(string matriz_automato[LINHA][COLUNA], string identificador_tokens[QNT_SIMBOLO]);	
-
+	string fita_saida[TAMANHO_FITA_SAIDA];
+	
 private:
 
-	string fita_saida[100]; 
-	string fita_erro[100]; //fazer o detalhamento
+	string fita_erro[TAMANHO_FITA_SAIDA]; //fazer o detalhamento
 	string automato[LINHA][COLUNA];
 	string identificadores[QNT_SIMBOLO];
 	short retorna_coluna_simbolo(string s);

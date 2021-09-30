@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "gerador_automato.h"
 #include "analisador_lexico.h"
+#include "analisador_sintatico.h"
 using namespace std;
 
 
@@ -13,8 +14,13 @@ int main () {
 
 	// Análise lexica da linguagem
 	Analizador_lexico Analize_lexica(Automato.matriz_automato, Automato.identificador_tokens);
-    
-    
+
+
+	// Análise sintática da linguagem
+    Analisador_sintatico Analise_sintatica(Analize_lexica.fita_saida);
+
+	
+
 	return 0;
 }
 
