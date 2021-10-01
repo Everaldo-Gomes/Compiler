@@ -7,6 +7,9 @@ using namespace std;
 Gerador_automato::Gerador_automato() {
 
 	criar_matriz();
+
+	// definindo os IDs dos identificadores de acordo com o GoldParser
+	criar_identificadores_tokens_goldparser();
 }
 
 void Gerador_automato::criar_matriz() {
@@ -253,4 +256,27 @@ int Gerador_automato::retorna_coluna_simbolo(string s) {
 void Gerador_automato::adicionar_estado_erro() {
 
 	matriz_automato[0][18] = "#";
+}
+
+void Gerador_automato::criar_identificadores_tokens_goldparser() {
+
+	/* adiciona os estados ao autômato */
+	FILE* arquivo = fopen("./identificadores_goldparser.txt","rt");
+
+	char linha[5];  
+	char tokens[5]; 
+	short contador = 0;
+	
+	while(fgets(linha, 5, arquivo)) {
+
+		sscanf(linha, "%s", tokens); 
+
+		identificador_tokens_goldparser[contador] = tokens;
+		contador++;
+	}
+
+	fclose(arquivo);
+
+	identificador_tokens_goldparser[++contador] = "variaveis";
+	identificador_tokens_goldparser[++contador] = "numeros";
 }

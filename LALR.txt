@@ -128,7 +128,7 @@ $ r 0
 
 State = 9
 
-$ a
+$ a 1
 
 
 State = 10

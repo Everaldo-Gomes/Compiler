@@ -14,6 +14,7 @@ public:
 	Gerador_automato();
 	string matriz_automato[LINHA][COLUNA];
 	string identificador_tokens[QNT_SIMBOLO];
+	string identificador_tokens_goldparser[QNT_SIMBOLO];
 
 private:
 
@@ -27,6 +28,7 @@ private:
 	int retorna_coluna_simbolo(string);
 	void adicionar_estado_erro();
 	void cria_cabecalho_automato();
+	void criar_identificadores_tokens_goldparser();
 
 	/* variáveis */
 	short coluna_livre_automato = 0;

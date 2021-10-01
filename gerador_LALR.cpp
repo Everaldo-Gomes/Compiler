@@ -4,28 +4,79 @@ using namespace std;
 
 // construtor
 Gerador_LALR::Gerador_LALR(string fita_saida_lexica[TAMANHO_FITA_SAIDA]) {
-	cout << "G L\n";
+	
 	gerar_cabecalho_LALR();
 	gerar_carga_tabela_LALR();
 
 }
 
 void Gerador_LALR::gerar_cabecalho_LALR() {
-	cout << "Gerar cabeçalho\n";
+
 	FILE* arquivo = fopen("./acao_transicao.txt","rt");
 
 	char linha[121];
+	short terminal = 0, nao_terminal = 0, contador_coluna = 0;
 	    
 	while(fgets(linha, 121, arquivo)) {
 
 		char item[20];
-
+		char terminais[] = "terminais";
+		char naoterminais[] = "naoterminais";
 		sscanf(linha, "%s", item);
-		cout << item << "\n";
-	
+
+
+		// inseri cabeçalho array ação
+		if (terminal) { 
+			LALR_acao[0][++contador_coluna] = item;
+		}
+
+		// inseri cabeçalho array transiçãoi
+		else if (nao_terminal) {
+			LALR_transicao[0][++contador_coluna] = item;
+		}
+
+	    
+		if (!strcmp(item,terminais)) {
+			
+			terminal = 1;
+			nao_terminal = 0;
+			contador_coluna = 0;
+		}
+		else if (!strcmp(item, naoterminais)) {
+
+			// remover o nome "nao terminais da última posicao
+			LALR_acao[0][contador_coluna] = " "; 
+			
+			terminal = 0;
+			nao_terminal = 1;
+			contador_coluna = 0;
+		}
 	}
 	
 	fclose(arquivo);
+
+
+	
+	short len_acao = sizeof(LALR_acao) / sizeof(LALR_acao[0]);
+	short len_tran = sizeof(LALR_transicao) / sizeof(LALR_transicao[0]);
+	
+	for (int i = 0; i < len_acao; i++) {
+
+		if (LALR_acao[0][i] != "") {
+			cout << LALR_acao[0][i] << " ";
+		}
+	}
+
+
+	
+	for (int i = 0; i < len_tran; i++) {
+
+		if (LALR_transicao[0][i] != "") {
+			cout << LALR_transicao[0][i] << " ";
+		}
+	}
+
+	cout << "\n\n";
 }
 
 

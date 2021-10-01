@@ -1,8 +1,5 @@
 #include <bits/stdc++.h>
 #include "analisador_lexico.h"
-using namespace std;
-
-
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 using namespace boost::algorithm;
@@ -79,7 +76,7 @@ void Analizador_lexico::analise_lexica() {
 					string estado = "";
 
 					//separa os estados que tem vírgula, Ex: I,N verifica o I e depois o N
-					for (int j = 0; j < estado_corrente.size(); j++) {
+					for (unsigned int j = 0; j < estado_corrente.size(); j++) {
 
 						//pega todo o estado Ex AA...., e para na virgula
 						if (estado_corrente[j] != ',') {
@@ -141,9 +138,10 @@ void Analizador_lexico::analise_lexica() {
 				}
 				
 				// encontra o identificador do token para caso de erro
+				// # é o estado de erro
 				else { 
 					
-					token_id = retorna_id_token("Error");
+					token_id = retorna_id_token("#");
 					fita_saida[contador_fita_saida] = to_string(token_id);
 					fita_erro[contador_fita_erro].append("Error na linha " + to_string(contador_linha) + ". Token inválido: " + token_atual);
 					contador_fita_erro++;

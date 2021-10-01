@@ -20,7 +20,6 @@ n
 se
 x
 y
-
 naoterminais
 A
 ATR
