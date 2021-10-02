@@ -55,7 +55,7 @@ void Gerador_automato::cria_cabecalho_automato() {
 /* encontra todos os caracteres dos tokens */
 void Gerador_automato::gerar_simbolo_token() {
 
-	FILE* arquivo = fopen("arquivo.txt", "r");
+	FILE* arquivo = fopen("./txt/arquivo.txt", "r");
 	string ch;
 	
 	while (!feof(arquivo)) {
@@ -86,12 +86,11 @@ void Gerador_automato::gerar_simbolo_token() {
 	fclose(arquivo);
 }
 
-
 void Gerador_automato::gerar_matriz_automato_estados_tokens() {
 
     
 	/* adiciona os estados ao autômato */
-	FILE* arquivo = fopen("./arquivo.txt","rt");
+	FILE* arquivo = fopen("./txt/arquivo.txt","rt");
 
 	char linha[5];  //cada linha do arquivo
 	char tokens[5]; //faz um loop na string de cada linha (letra por letra)
@@ -164,10 +163,9 @@ void Gerador_automato::gerar_matriz_automato_estados_tokens() {
 	fclose(arquivo);
 }
 
-
 void Gerador_automato::gerar_simbolo_glc() {
 
-	FILE* arquivo = fopen("arquivo.txt", "r");
+	FILE* arquivo = fopen("./txt/arquivo.txt", "r");
 	char ch;
 	
 	while (!feof(arquivo)) {
@@ -202,7 +200,6 @@ void Gerador_automato::gerar_simbolo_glc() {
 		}
 	}
 }
-
 
 void Gerador_automato::gerar_matriz_automato_estados_GLC() {
 
@@ -261,7 +258,7 @@ void Gerador_automato::adicionar_estado_erro() {
 void Gerador_automato::criar_identificadores_tokens_goldparser() {
 
 	/* adiciona os estados ao autômato */
-	FILE* arquivo = fopen("./identificadores_goldparser.txt","rt");
+	FILE* arquivo = fopen("./txt/identificadores_goldparser.txt","rt");
 
 	char linha[5];  
 	char tokens[5]; 

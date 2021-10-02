@@ -16,18 +16,14 @@ int Objeto_base::str_equal(string first, string second) {
 
 string Objeto_base::char_to_str(char *chars) {
 	
-	//int len = sizeof(chars) / sizeof(char);
 	int len = strlen(chars);
 	string word = "";
 	
 	for (int i = 0; i <= len; ++i) 
 		word.append(1, chars[i]);
-
-	//cout <<"Str_: " << word << endl;
 	
 	return word;
 }
-
 
 string Objeto_base::convertToString(char* a) {
 
@@ -40,7 +36,5 @@ string Objeto_base::convertToString(char* a) {
         s = s + a[i];
     }
 
-	//cout <<"Dentro func: " << s << endl;
-	
 	return s;
 }

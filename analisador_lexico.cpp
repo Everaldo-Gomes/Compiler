@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #include "analisador_lexico.h"
 #include <boost/algorithm/string.hpp>
-#include <iostream>
 using namespace boost::algorithm;
 using namespace std;
 
@@ -21,7 +20,6 @@ Analizador_lexico::Analizador_lexico(string matriz_automato[LINHA][COLUNA], stri
 	
 	for(int i = 0; i < QNT_SIMBOLO; i++) {
 		identificadores[i] = identificador_tokens[i];
-		//cout << i << " " << identificadores[i] << "\n";
 	}
 
 	analise_lexica();
@@ -34,10 +32,9 @@ Analizador_lexico::Analizador_lexico(string matriz_automato[LINHA][COLUNA], stri
 	cout << "\n";
 }
 
-
 void Analizador_lexico::analise_lexica() {
 
-	FILE* arquivo = fopen("./programa.txt","rt");
+	FILE* arquivo = fopen("./txt/programa.txt","rt");
 
 	char linha[20];  //cada linha do arquivo
 	char tokens[20]; //faz um loop na string de cada linha (letra por letra)
@@ -164,7 +161,6 @@ void Analizador_lexico::analise_lexica() {
 	fclose(arquivo);
 }
 
-
 void Analizador_lexico::exibir_fita_erro() {
 
 	int len = sizeof fita_erro / sizeof fita_erro[0];;
@@ -190,7 +186,6 @@ void Analizador_lexico::exibir_fita_saida() {
 	}
 }
 
-
 short Analizador_lexico::retorna_id_token(string s) {
 
 	short posicao = -1;
@@ -206,7 +201,6 @@ short Analizador_lexico::retorna_id_token(string s) {
 	return posicao;
 }
 
-
 short Analizador_lexico::retorna_coluna_simbolo(string s) {
 
 	short posicao = -1;
@@ -220,7 +214,6 @@ short Analizador_lexico::retorna_coluna_simbolo(string s) {
 
 	return posicao;
 }
-
 
 short Analizador_lexico::retorna_linha_estado(string s) {
 
@@ -257,7 +250,3 @@ short Analizador_lexico::verifica_estado_aceitacao(string s) {
 
 	return eh_aceitacao;
 }
-
-// se x enq 100 is
-// 	y = x
-// fs
