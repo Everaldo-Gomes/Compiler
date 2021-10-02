@@ -6,8 +6,11 @@
 #define COLUNA 19
 #define sinal_erro "$"
 #define TAMANHO_FITA_SAIDA 100
-#define TAMANHO_COLUNA_TAB_LALR 40
+#define TAMANHO_COLUNA_TAB_LALR 100
 #define TAMANHO_LINHA_TAB_LALR 100
+
+#include <string.h>
+using namespace std;
 
 class Objeto_base {
 
@@ -15,6 +18,10 @@ public:
 
 	Objeto_base();
 	//string sinal_erro = "$";
+
+	string convertToString(char* a);
+	string char_to_str(char *chars);
+	int str_equal(string first, string second);
 };
 
 
