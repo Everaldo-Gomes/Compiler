@@ -11,6 +11,8 @@
 #define COUT_SIZE 9
 
 #include <string.h>
+#include <boost/algorithm/string.hpp>
+using namespace boost::algorithm;
 using namespace std;
 
 class Objeto_base {

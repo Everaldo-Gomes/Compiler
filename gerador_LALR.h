@@ -13,6 +13,7 @@ public:
 	Gerador_LALR(string fita_saida_lexica[TAMANHO_FITA_SAIDA]);
 	void gerar_cabecalho_LALR();
 	string fita_saida[TAMANHO_FITA_SAIDA];
+	void exibir_LARL();
 	
 private:
 

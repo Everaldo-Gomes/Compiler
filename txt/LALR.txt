@@ -45,7 +45,8 @@ is r 36
 ma r 36
 me r 36
 n r 36
-se r 36State = 4
+se r 36
+State = 4
 x s 17
 y s 18
 A g 20
@@ -92,7 +93,8 @@ $ r 4
 fe r 4
 fs r 4
 State = 7
-enq s 1se s 2
+enq s 1
+se s 2
 x s 3
 y s 4
 ATR g 5
@@ -139,7 +141,8 @@ $ r 31
 - r 31
 * r 31
 / r 31
-+ r 31enq r 31
++ r 31
+enq r 31
 eq r 31
 fe r 31
 fs r 31
@@ -186,7 +189,8 @@ is r 36
 ma r 36
 me r 36
 n r 36
-se r 36State = 18
+se r 36
+State = 18
 x s 17
 y s 18
 A g 39
@@ -233,7 +237,8 @@ $ r 33
 + r 33
 = r 33
 enq r 33
-eq r 33fe r 33
+eq r 33
+fe r 33
 fs r 33
 ie r 33
 is r 33
@@ -280,7 +285,8 @@ $ r 31
 enq r 31
 eq r 31
 fe r 31
-fs r 31ie r 31
+fs r 31
+ie r 31
 is r 31
 ma r 31
 me r 31
@@ -327,7 +333,8 @@ n r 27
 se r 27
 x r 27
 y r 27
-State = 29$ r 28
+State = 29
+$ r 28
 - r 28
 * r 28
 / r 28
@@ -374,7 +381,8 @@ State = 34
 0 r 24
 1 r 24
 x r 24
-y r 24State = 35
+y r 24
+State = 35
 0 s 11
 1 s 12
 x s 3
@@ -421,7 +429,8 @@ y r 34
 State = 39
 $ r 35
 - r 35
-* r 35/ r 35
+* r 35
+/ r 35
 + r 35
 = r 35
 enq r 35
@@ -468,7 +477,8 @@ enq r 8
 fe r 8
 fs r 8
 se r 8
-x r 8y r 8
+x r 8
+y r 8
 State = 43
 $ r 29
 - r 29
@@ -515,7 +525,8 @@ ie r 21
 is r 21
 State = 48
 ie r 20
-is r 20State = 49
+is r 20
+State = 49
 ie r 19
 is r 19
 State = 50
@@ -562,7 +573,8 @@ fs r 6
 se r 6
 x r 6
 y r 6
-State = 58$ r 5
+State = 58
+$ r 5
 enq r 5
 fe r 5
 fs r 5

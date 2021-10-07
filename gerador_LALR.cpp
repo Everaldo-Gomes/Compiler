@@ -10,22 +10,6 @@ Gerador_LALR::Gerador_LALR(string fita_saida_lexica[TAMANHO_FITA_SAIDA]) {
 	
 	gerar_cabecalho_LALR();
 	gerar_carga_tabela_LALR();
-
-	cout << "Tabela LALR\n\n";
-
-	cout << "--------------------------------------------------------------------------------------------";
-	cout << "Ações";
-	cout << "--------------------------------------------------------------------------------------------\n\n";
-	
-	exibir_cabecalho_acao_LALR();
-	exibir_corpo_acao_LALR();
-
-	cout << "\n\n--------------------------------------------------------------------------------------------";
-	cout << "Transição";
-	cout << "--------------------------------------------------------------------------------------------\n\n";
-	
-	exibir_cabecalho_transicao_LALR();
-	exibir_corpo_transicao_LALR();
 }
 
 void Gerador_LALR::gerar_cabecalho_LALR() {
@@ -93,7 +77,7 @@ void Gerador_LALR::gerar_carga_tabela_LALR() {
 		memset(acao, '\0', 2);
 	    
 		sscanf(linha, "%s %s %d", term_ou_nao_term, acao, &estado);
-
+		
 		// converte valores lidos para string
 		str_term_ou_nao_term = convertToString(term_ou_nao_term);
 		str_acao = convertToString(acao);
@@ -105,7 +89,7 @@ void Gerador_LALR::gerar_carga_tabela_LALR() {
 			estado_atual = estado; 
 		}
 		else {
-
+			
 			// inseri no array transicao
 			if (isupper(term_ou_nao_term[0])) {	//if (islower(term_ou_nao_term[0]) || isdigit(term_ou_nao_term[0])) {
 				
@@ -192,16 +176,19 @@ void Gerador_LALR::exibir_corpo_acao_LALR() {
 
 	for (int j = 1; j < 64; j++) {
 		for (int i = 0; i < len_acao; i++) {
-			//for (int i = len_acao-1; i >= 0; i--) {
 		
 			if (LALR_acao[j][i] != "") {
 				cout << LALR_acao[j][i];
+				cout.width(COUT_SIZE); 
+			}
+			else {
+				cout << " ";
 				cout.width(COUT_SIZE);
 			}
 		}
+
 		cout << "\n";
 	}
-
 	cout << "\n\n";
 }
 
@@ -216,6 +203,10 @@ void Gerador_LALR::exibir_corpo_transicao_LALR() {
 				cout << LALR_transicao[j][k];
 				cout.width(COUT_SIZE);
 			}
+			else {
+				cout << " ";
+				cout.width(COUT_SIZE);
+			}
 		}
 		cout << "\n";
 	}
@@ -224,14 +215,13 @@ void Gerador_LALR::exibir_corpo_transicao_LALR() {
 }
 
 int Gerador_LALR::encontrar_coluna_terminal(string terminal) {
-
+	
 	int len_acao = sizeof(LALR_acao) / sizeof(LALR_acao[0]);
 	int posicao = -1;
 	
-	for (int i = 0; i < len_acao; i++) {
-
+	for (int i = 1; i < len_acao; i++) {
+		
 		if (str_equal(LALR_acao[0][i], terminal)) {
-			
 			posicao = i;
 			break;
 		}
@@ -245,14 +235,32 @@ short Gerador_LALR::encontrar_coluna_nao_terminal(string nao_terminal) {
 	short len_transicao = sizeof(LALR_transicao) / sizeof(LALR_transicao[0]);
 	short posicao = -1;
 	
-	for (int i = 0; i < len_transicao; i++) {
+	for (int i = 1; i < len_transicao; i++) {
 
 		if (str_equal(LALR_transicao[0][i], nao_terminal)) {
-			
 			posicao = i;
 			break;
 		}
 	}
 
 	return posicao;
+}
+
+void Gerador_LALR::exibir_LARL() {
+
+	cout << "Tabela LALR\n\n";
+
+	cout << "-------------------------------------------------------------------------------------------------";
+	cout << "Ações";
+	cout << "-------------------------------------------------------------------------------------------------\n\n";
+	
+	exibir_cabecalho_acao_LALR();
+	exibir_corpo_acao_LALR();
+
+	cout << "\n\n-------------------------------------------------------------------------------------------------";
+	cout << "Transição";
+	cout << "-------------------------------------------------------------------------------------------------\n\n";
+	
+	exibir_cabecalho_transicao_LALR();
+	exibir_corpo_transicao_LALR();
 }

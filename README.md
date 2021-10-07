@@ -2,5 +2,6 @@
 
 Pŕoximos passos:
 
-	carregar tabela LALR do goldparser para uma tab
-	fazer o artigo
+
+fita de saída pra próxima etapa
+fazer o artigo
