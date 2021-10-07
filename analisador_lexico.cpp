@@ -131,7 +131,7 @@ void Analizador_lexico::analise_lexica() {
 					}
 					
 					fita_saida[contador_fita_saida] = to_string(token_id);
-					// valor passador anteriormente: "estado_corrente"
+					// valor passado anteriormente: "estado_corrente"
 				}
 				
 				// encontra o identificador do token para caso de erro

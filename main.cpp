@@ -17,7 +17,8 @@ int main () {
 
 
 	// Análise sintática da linguagem
-    Analisador_sintatico Analise_sintatica(Analize_lexica.fita_saida);
+    Analisador_sintatico Analise_sintatica(Analize_lexica.fita_saida,
+										   Automato.identificador_tokens_goldparser);
 
 	
 

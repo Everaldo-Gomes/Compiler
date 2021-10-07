@@ -14,11 +14,12 @@ public:
 	void gerar_cabecalho_LALR();
 	string fita_saida[TAMANHO_FITA_SAIDA];
 	void exibir_LARL();
-	
-private:
 
 	string LALR_acao[TAMANHO_LINHA_TAB_LALR][TAMANHO_COLUNA_TAB_LALR];
 	string LALR_transicao[TAMANHO_LINHA_TAB_LALR][TAMANHO_COLUNA_TAB_LALR];
+
+	
+private:
 
 	void exibir_cabecalho_acao_LALR();
 	void exibir_cabecalho_transicao_LALR();
