@@ -1,5 +1,5 @@
 enq x ma y ie
 	se yy me is
-		yx = 01 * xx
+		yx = 01 * xx 
 	fs
 fe

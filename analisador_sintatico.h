@@ -41,7 +41,11 @@ private:
 	void exibe_fita_saida();
 	void exibe_pilha();
 	void empilha(int acao);
-	
+	void reducao(int);
+	int tamanho_producao(int);
+	string nome_regra_producao(int);
+	void reduz_pilha(int tamnanho_reducao);
+	void empilha_estado_apos_reducao(string nome_regra, string estado);
 };
 
 
