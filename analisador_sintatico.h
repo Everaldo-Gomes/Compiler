@@ -7,6 +7,7 @@
 
 #include <bits/stdc++.h>
 #include "func.h"
+#include "gerador_LALR.h"
 
 using namespace std;
 
@@ -15,10 +16,12 @@ class Analisador_sintatico : public Objeto_base {
 public:
 
 	Analisador_sintatico(string fita_saida[TAMANHO_FITA_SAIDA], string identificador_tokens[QNT_SIMBOLO]);
-
+	~Analisador_sintatico();
 	
 	
 private:
+
+	Gerador_LALR *gerar_LALR;
 	
 	// fita que vem da análise léxica
 	string fita[TAMANHO_FITA_SAIDA];
@@ -30,6 +33,14 @@ private:
 	
 	void inicializar_pilha();
 	void analise_sintatica();
+
+	string top_pilha();
+	string encontrar_acao_LALR(string, int);
+
+	int retorna_numero(string str);
+	void exibe_fita_saida();
+	void exibe_pilha();
+	void empilha(int acao);
 	
 };
 
