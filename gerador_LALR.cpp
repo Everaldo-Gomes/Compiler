@@ -39,7 +39,6 @@ void Gerador_LALR::gerar_cabecalho_LALR() {
 
 	    
 		if (!strcmp(item,terminais)) {
-			
 			terminal = 1;
 			nao_terminal = 0;
 			contador_coluna = 0;
@@ -174,7 +173,7 @@ void Gerador_LALR::exibir_corpo_acao_LALR() {
 
 	short len_acao = sizeof(LALR_acao) / sizeof(LALR_acao[0]);
 
-	for (int j = 1; j < 64; j++) {
+	for (int j = 1; j < QNT_ESTADOS; j++) {
 		for (int i = 0; i < len_acao; i++) {
 		
 			if (LALR_acao[j][i] != "") {
@@ -186,9 +185,9 @@ void Gerador_LALR::exibir_corpo_acao_LALR() {
 				cout.width(COUT_SIZE);
 			}
 		}
-
 		cout << "\n";
 	}
+	
 	cout << "\n\n";
 }
 
@@ -196,7 +195,7 @@ void Gerador_LALR::exibir_corpo_transicao_LALR() {
 
 	short len_tran = sizeof(LALR_transicao) / sizeof(LALR_transicao[0]);
 
-	for (int j = 1; j < 64; j++) {
+	for (int j = 1; j < QNT_ESTADOS; j++) {
 		for (int k = 0; k < len_tran; k++) {
 
 			if (LALR_transicao[j][k] != "") {
@@ -250,16 +249,16 @@ void Gerador_LALR::exibir_LARL() {
 
 	cout << "Tabela LALR\n\n";
 
-	cout << "-------------------------------------------------------------------------------------------------";
+	cout << "-----------------------------------------------------------------------------------------------------";
 	cout << "Ações";
-	cout << "-------------------------------------------------------------------------------------------------\n\n";
+	cout << "-----------------------------------------------------------------------------------------------------\n\n";
 	
 	exibir_cabecalho_acao_LALR();
 	exibir_corpo_acao_LALR();
 
-	cout << "\n\n-------------------------------------------------------------------------------------------------";
+	cout << "\n\n-------------------------------------------------------------------------------------------------------";
 	cout << "Transição";
-	cout << "-------------------------------------------------------------------------------------------------\n\n";
+	cout << "-------------------------------------------------------------------------------------------------------\n\n";
 	
 	exibir_cabecalho_transicao_LALR();
 	exibir_corpo_transicao_LALR();

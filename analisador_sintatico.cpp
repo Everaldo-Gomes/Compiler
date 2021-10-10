@@ -226,10 +226,10 @@ void Analisador_sintatico::reducao(int numero_acao) {
 	empilha_estado_apos_reducao(nome_regra, to_string(retorna_numero(transicao)));
 
 
-	cout << "TOPO pilha: " << topo_pilha <<"\n"
-		 <<"Transicao: " << coluna_transicao << "\n"
-		 << "Estado: " << transicao << "\n"
-		 << "Estado Int: " << retorna_numero(transicao);
+	// cout << "TOPO pilha: " << topo_pilha <<"\n"
+	// 	 <<"Transicao: " << coluna_transicao << "\n"
+	// 	 << "Estado: " << transicao << "\n"
+	// 	 << "Estado Int: " << retorna_numero(transicao);
 }	
 
 void Analisador_sintatico::empilha_estado_apos_reducao(string nome_regra, string estado) {

@@ -8,6 +8,8 @@ using namespace std;
 int main () {
 	
 	// quando é instanciado, tem um contructor que já chama todas as funções necessárias
+
+
 	// para criar o autômato.
 	Gerador_automato Automato;
 
@@ -17,10 +19,7 @@ int main () {
 
 
 	// Análise sintática da linguagem
-    Analisador_sintatico Analise_sintatica(Analize_lexica.fita_saida,
-										   Automato.identificador_tokens_goldparser);
-
-	
+    Analisador_sintatico Analise_sintatica(Analize_lexica.fita_saida, Automato.identificador_tokens_goldparser);
 
 	return 0;
 }

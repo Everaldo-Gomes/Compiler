@@ -9,6 +9,7 @@ $
 1
 enq
 eq
+fa
 fe
 fs
 ie

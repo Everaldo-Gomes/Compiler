@@ -7,6 +7,5 @@ No arquivo redueção sempre subtrair 1 do id
 
 Pŕoximos passos:
 
-
 fita de saída pra próxima etapa
 fazer o artigo

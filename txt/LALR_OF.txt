@@ -1,0 +1,1202 @@
+﻿============================================================
+GOLD Parser Builder
+Version 5.2.0.
+============================================================
+
+
+========================================
+Grammar
+========================================
+
+"start symbol" = <S>
+<S>   ::= <OPS>
+<OPS> ::= <OPC> <OPS>|<OPR><OPS>|<ATR><OPS> |
+<OPC> ::= 'se'  <CQE>  'ie'  <OPS>  'fs'
+<OPR> ::= 'enq'  <CQE>  'is'  <OPS>  'fe'
+       
+<ATR> ::= <VAR>  '='  <OPA> 'fa' |  <VAR>  '='  <VAR> 'fa' | <VAR>  '='  <NUM>  'fa' 
+       
+<CQE> ::= <VAR>  <EQI>  <VAR> | <VAR>  <EQI>  <NUM> | <NUM>  <EQI>  <VAR> | <NUM>  <EQI>  <NUM>
+<EQI> ::= 'eq' | 'n' | 'me' | 'ma'
+       
+<OPA> ::= <VAR>  <OPE>  <VAR> | <VAR>  <OPE>  <NUM> | <NUM>  <OPE>  <VAR> | <NUM>  <OPE>  <NUM> 
+<OPE> ::= '+' | '-' | '*' | '/'
+              
+<NUM> ::= '0'<N> | '1'<N> 
+<N>   ::= '0'<N> | '1'<N> | 
+       
+<VAR> ::= 'x' <A> | 'y' <A>
+<A>   ::= 'x' <A> | 'y' <A> | 
+
+
+
+========================================
+Grammar Properties
+========================================
+
+start symbol        S
+Name                (Untitled)
+Author              (Unknown)
+Version             (Not Specified)
+Auto Whitespace     True
+Case Sensitive      False
+Character Mapping   Windows-1252
+Character Set       Unicode
+
+
+========================================
+Terminals
+========================================
+
+ 0      (EOF)
+ 1      (Error)
+ 2      Whitespace
+ 3      '-'
+ 4      '*'
+ 5      '/'
+ 6      '+'
+ 7      '='
+ 8      '0'
+ 9      '1'
+ 10     enq
+ 11     eq
+ 12     fa
+ 13     fe
+ 14     fs
+ 15     ie
+ 16     is
+ 17     ma
+ 18     me
+ 19     n
+ 20     se
+ 21     x
+ 22     y
+
+
+========================================
+Nonterminals
+========================================
+
+23      <A>
+24      <ATR>
+25      <CQE>
+26      <EQI>
+27      <N>
+28      <NUM>
+29      <OPA>
+30      <OPC>
+31      <OPE>
+32      <OPR>
+33      <OPS>
+34      <S>
+35      <VAR>
+
+
+========================================
+Rules
+========================================
+
+0       <S> ::= <OPS>
+1       <OPS> ::= <OPC> <OPS>
+2       <OPS> ::= <OPR> <OPS>
+3       <OPS> ::= <ATR> <OPS>
+4       <OPS> ::= 
+5       <OPC> ::= se <CQE> ie <OPS> fs
+6       <OPR> ::= enq <CQE> is <OPS> fe
+7       <ATR> ::= <VAR> '=' <OPA> fa
+8       <ATR> ::= <VAR> '=' <VAR> fa
+9       <ATR> ::= <VAR> '=' <NUM> fa
+10      <CQE> ::= <VAR> <EQI> <VAR>
+11      <CQE> ::= <VAR> <EQI> <NUM>
+12      <CQE> ::= <NUM> <EQI> <VAR>
+13      <CQE> ::= <NUM> <EQI> <NUM>
+14      <EQI> ::= eq
+15      <EQI> ::= n
+16      <EQI> ::= me
+17      <EQI> ::= ma
+18      <OPA> ::= <VAR> <OPE> <VAR>
+19      <OPA> ::= <VAR> <OPE> <NUM>
+20      <OPA> ::= <NUM> <OPE> <VAR>
+21      <OPA> ::= <NUM> <OPE> <NUM>
+22      <OPE> ::= '+'
+23      <OPE> ::= '-'
+24      <OPE> ::= '*'
+25      <OPE> ::= '/'
+26      <NUM> ::= '0' <N>
+27      <NUM> ::= '1' <N>
+28      <N> ::= '0' <N>
+29      <N> ::= '1' <N>
+30      <N> ::= 
+31      <VAR> ::= x <A>
+32      <VAR> ::= y <A>
+33      <A> ::= x <A>
+34      <A> ::= y <A>
+35      <A> ::= 
+
+
+========================================
+LALR States
+========================================
+
+State 0
+        <S'> ::= _ <S> (EOF)                     <S'> ::= ^ <S> (EOF)
+        <S> ::= _ <OPS>                          <S> ::= ^ <OPS>
+        <OPS> ::= _ <OPC> <OPS>                  <OPS> ::= ^ <OPC> <OPS>
+        <OPS> ::= _ <OPR> <OPS>                  <OPS> ::= ^ <OPR> <OPS>
+        <OPS> ::= _ <ATR> <OPS>                  <OPS> ::= ^ <ATR> <OPS>
+        <OPS> ::= _                              <OPS> ::= ^
+        <OPC> ::= _ se <CQE> ie <OPS> fs         <OPC> ::= ^ se <CQE> ie <OPS> fs
+        <OPR> ::= _ enq <CQE> is <OPS> fe        <OPR> ::= ^ enq <CQE> is <OPS> fe
+        <ATR> ::= _ <VAR> '=' <OPA> fa           <ATR> ::= ^ <VAR> '=' <OPA> fa
+        <ATR> ::= _ <VAR> '=' <VAR> fa           <ATR> ::= ^ <VAR> '=' <VAR> fa
+        <ATR> ::= _ <VAR> '=' <NUM> fa           <ATR> ::= ^ <VAR> '=' <NUM> fa
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        enq s 1
+        se s 2
+        x s 3
+        y s 4
+        <ATR> g 5
+        <OPC> g 6
+        <OPR> g 7
+        <OPS> g 8
+        <S> g 9
+        <VAR> g 10
+        (EOF) r 4
+
+
+State 1
+        Prior States: 0, 5, 6, 7, 29, 36
+
+        <OPR> ::= enq _ <CQE> is <OPS> fe        <OPR> ::= enq ^ <CQE> is <OPS> fe
+        <CQE> ::= _ <VAR> <EQI> <VAR>            <CQE> ::= ^ <VAR> <EQI> <VAR>
+        <CQE> ::= _ <VAR> <EQI> <NUM>            <CQE> ::= ^ <VAR> <EQI> <NUM>
+        <CQE> ::= _ <NUM> <EQI> <VAR>            <CQE> ::= ^ <NUM> <EQI> <VAR>
+        <CQE> ::= _ <NUM> <EQI> <NUM>            <CQE> ::= ^ <NUM> <EQI> <NUM>
+        <NUM> ::= _ '0' <N>                      <NUM> ::= ^ '0' <N>
+        <NUM> ::= _ '1' <N>                      <NUM> ::= ^ '1' <N>
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        '0' s 11
+        '1' s 12
+        x s 3
+        y s 4
+        <CQE> g 13
+        <NUM> g 14
+        <VAR> g 15
+
+
+State 2
+        Prior States: 0, 5, 6, 7, 29, 36
+
+        <OPC> ::= se _ <CQE> ie <OPS> fs         <OPC> ::= se ^ <CQE> ie <OPS> fs
+        <CQE> ::= _ <VAR> <EQI> <VAR>            <CQE> ::= ^ <VAR> <EQI> <VAR>
+        <CQE> ::= _ <VAR> <EQI> <NUM>            <CQE> ::= ^ <VAR> <EQI> <NUM>
+        <CQE> ::= _ <NUM> <EQI> <VAR>            <CQE> ::= ^ <NUM> <EQI> <VAR>
+        <CQE> ::= _ <NUM> <EQI> <NUM>            <CQE> ::= ^ <NUM> <EQI> <NUM>
+        <NUM> ::= _ '0' <N>                      <NUM> ::= ^ '0' <N>
+        <NUM> ::= _ '1' <N>                      <NUM> ::= ^ '1' <N>
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        '0' s 11
+        '1' s 12
+        x s 3
+        y s 4
+        <CQE> g 16
+        <NUM> g 14
+        <VAR> g 15
+
+
+State 3
+        Prior States: 0, 1, 2, 5, 6, 7, 24, 29, 34, 35, 36, 55, 58
+
+        <VAR> ::= x _ <A>                        <VAR> ::= x ^ <A>
+        <A> ::= _ x <A>                          <A> ::= ^ x <A>
+        <A> ::= _ y <A>                          <A> ::= ^ y <A>
+        <A> ::= _                                <A> ::= ^
+
+        x s 17
+        y s 18
+        <A> g 19
+        '-' r 35
+        '*' r 35
+        '/' r 35
+        '+' r 35
+        '=' r 35
+        eq r 35
+        fa r 35
+        ie r 35
+        is r 35
+        ma r 35
+        me r 35
+        n r 35
+
+
+State 4
+        Prior States: 0, 1, 2, 5, 6, 7, 24, 29, 34, 35, 36, 55, 58
+
+        <VAR> ::= y _ <A>                        <VAR> ::= y ^ <A>
+        <A> ::= _ x <A>                          <A> ::= ^ x <A>
+        <A> ::= _ y <A>                          <A> ::= ^ y <A>
+        <A> ::= _                                <A> ::= ^
+
+        x s 17
+        y s 18
+        <A> g 20
+        '-' r 35
+        '*' r 35
+        '/' r 35
+        '+' r 35
+        '=' r 35
+        eq r 35
+        fa r 35
+        ie r 35
+        is r 35
+        ma r 35
+        me r 35
+        n r 35
+
+
+State 5
+        Prior States: 0, 5, 6, 7, 29, 36
+
+        <OPS> ::= <ATR> _ <OPS>                  <OPS> ::= <ATR> ^ <OPS>
+        <OPS> ::= _ <OPC> <OPS>                  <OPS> ::= ^ <OPC> <OPS>
+        <OPS> ::= _ <OPR> <OPS>                  <OPS> ::= ^ <OPR> <OPS>
+        <OPS> ::= _ <ATR> <OPS>                  <OPS> ::= ^ <ATR> <OPS>
+        <OPS> ::= _                              <OPS> ::= ^
+        <OPC> ::= _ se <CQE> ie <OPS> fs         <OPC> ::= ^ se <CQE> ie <OPS> fs
+        <OPR> ::= _ enq <CQE> is <OPS> fe        <OPR> ::= ^ enq <CQE> is <OPS> fe
+        <ATR> ::= _ <VAR> '=' <OPA> fa           <ATR> ::= ^ <VAR> '=' <OPA> fa
+        <ATR> ::= _ <VAR> '=' <VAR> fa           <ATR> ::= ^ <VAR> '=' <VAR> fa
+        <ATR> ::= _ <VAR> '=' <NUM> fa           <ATR> ::= ^ <VAR> '=' <NUM> fa
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        enq s 1
+        se s 2
+        x s 3
+        y s 4
+        <ATR> g 5
+        <OPC> g 6
+        <OPR> g 7
+        <OPS> g 21
+        <VAR> g 10
+        (EOF) r 4
+        fe r 4
+        fs r 4
+
+
+State 6
+        Prior States: 0, 5, 6, 7, 29, 36
+
+        <OPS> ::= <OPC> _ <OPS>                  <OPS> ::= <OPC> ^ <OPS>
+        <OPS> ::= _ <OPC> <OPS>                  <OPS> ::= ^ <OPC> <OPS>
+        <OPS> ::= _ <OPR> <OPS>                  <OPS> ::= ^ <OPR> <OPS>
+        <OPS> ::= _ <ATR> <OPS>                  <OPS> ::= ^ <ATR> <OPS>
+        <OPS> ::= _                              <OPS> ::= ^
+        <OPC> ::= _ se <CQE> ie <OPS> fs         <OPC> ::= ^ se <CQE> ie <OPS> fs
+        <OPR> ::= _ enq <CQE> is <OPS> fe        <OPR> ::= ^ enq <CQE> is <OPS> fe
+        <ATR> ::= _ <VAR> '=' <OPA> fa           <ATR> ::= ^ <VAR> '=' <OPA> fa
+        <ATR> ::= _ <VAR> '=' <VAR> fa           <ATR> ::= ^ <VAR> '=' <VAR> fa
+        <ATR> ::= _ <VAR> '=' <NUM> fa           <ATR> ::= ^ <VAR> '=' <NUM> fa
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        enq s 1
+        se s 2
+        x s 3
+        y s 4
+        <ATR> g 5
+        <OPC> g 6
+        <OPR> g 7
+        <OPS> g 22
+        <VAR> g 10
+        (EOF) r 4
+        fe r 4
+        fs r 4
+
+
+State 7
+        Prior States: 0, 5, 6, 7, 29, 36
+
+        <OPS> ::= <OPR> _ <OPS>                  <OPS> ::= <OPR> ^ <OPS>
+        <OPS> ::= _ <OPC> <OPS>                  <OPS> ::= ^ <OPC> <OPS>
+        <OPS> ::= _ <OPR> <OPS>                  <OPS> ::= ^ <OPR> <OPS>
+        <OPS> ::= _ <ATR> <OPS>                  <OPS> ::= ^ <ATR> <OPS>
+        <OPS> ::= _                              <OPS> ::= ^
+        <OPC> ::= _ se <CQE> ie <OPS> fs         <OPC> ::= ^ se <CQE> ie <OPS> fs
+        <OPR> ::= _ enq <CQE> is <OPS> fe        <OPR> ::= ^ enq <CQE> is <OPS> fe
+        <ATR> ::= _ <VAR> '=' <OPA> fa           <ATR> ::= ^ <VAR> '=' <OPA> fa
+        <ATR> ::= _ <VAR> '=' <VAR> fa           <ATR> ::= ^ <VAR> '=' <VAR> fa
+        <ATR> ::= _ <VAR> '=' <NUM> fa           <ATR> ::= ^ <VAR> '=' <NUM> fa
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        enq s 1
+        se s 2
+        x s 3
+        y s 4
+        <ATR> g 5
+        <OPC> g 6
+        <OPR> g 7
+        <OPS> g 23
+        <VAR> g 10
+        (EOF) r 4
+        fe r 4
+        fs r 4
+
+
+State 8
+        Prior States: 0
+
+        <S> ::= <OPS> _                          <S> ::= <OPS> ^
+
+        (EOF) r 0
+
+
+State 9
+        Prior States: 0
+
+        <S'> ::= <S> _ (EOF)                     <S'> ::= <S> ^ (EOF)
+
+        (EOF) a
+
+
+State 10
+        Prior States: 0, 5, 6, 7, 29, 36
+
+        <ATR> ::= <VAR> _ '=' <OPA> fa           <ATR> ::= <VAR> ^ '=' <OPA> fa
+        <ATR> ::= <VAR> _ '=' <VAR> fa           <ATR> ::= <VAR> ^ '=' <VAR> fa
+        <ATR> ::= <VAR> _ '=' <NUM> fa           <ATR> ::= <VAR> ^ '=' <NUM> fa
+
+        '=' s 24
+
+
+State 11
+        Prior States: 1, 2, 24, 34, 35, 55, 58
+
+        <NUM> ::= '0' _ <N>                      <NUM> ::= '0' ^ <N>
+        <N> ::= _ '0' <N>                        <N> ::= ^ '0' <N>
+        <N> ::= _ '1' <N>                        <N> ::= ^ '1' <N>
+        <N> ::= _                                <N> ::= ^
+
+        '0' s 25
+        '1' s 26
+        <N> g 27
+        '-' r 30
+        '*' r 30
+        '/' r 30
+        '+' r 30
+        eq r 30
+        fa r 30
+        ie r 30
+        is r 30
+        ma r 30
+        me r 30
+        n r 30
+
+
+State 12
+        Prior States: 1, 2, 24, 34, 35, 55, 58
+
+        <NUM> ::= '1' _ <N>                      <NUM> ::= '1' ^ <N>
+        <N> ::= _ '0' <N>                        <N> ::= ^ '0' <N>
+        <N> ::= _ '1' <N>                        <N> ::= ^ '1' <N>
+        <N> ::= _                                <N> ::= ^
+
+        '0' s 25
+        '1' s 26
+        <N> g 28
+        '-' r 30
+        '*' r 30
+        '/' r 30
+        '+' r 30
+        eq r 30
+        fa r 30
+        ie r 30
+        is r 30
+        ma r 30
+        me r 30
+        n r 30
+
+
+State 13
+        Prior States: 1
+
+        <OPR> ::= enq <CQE> _ is <OPS> fe        <OPR> ::= enq <CQE> ^ is <OPS> fe
+
+        is s 29
+
+
+State 14
+        Prior States: 1, 2
+
+        <CQE> ::= <NUM> _ <EQI> <VAR>            <CQE> ::= <NUM> ^ <EQI> <VAR>
+        <CQE> ::= <NUM> _ <EQI> <NUM>            <CQE> ::= <NUM> ^ <EQI> <NUM>
+        <EQI> ::= _ eq                           <EQI> ::= ^ eq
+        <EQI> ::= _ n                            <EQI> ::= ^ n
+        <EQI> ::= _ me                           <EQI> ::= ^ me
+        <EQI> ::= _ ma                           <EQI> ::= ^ ma
+
+        eq s 30
+        ma s 31
+        me s 32
+        n s 33
+        <EQI> g 34
+
+
+State 15
+        Prior States: 1, 2
+
+        <CQE> ::= <VAR> _ <EQI> <VAR>            <CQE> ::= <VAR> ^ <EQI> <VAR>
+        <CQE> ::= <VAR> _ <EQI> <NUM>            <CQE> ::= <VAR> ^ <EQI> <NUM>
+        <EQI> ::= _ eq                           <EQI> ::= ^ eq
+        <EQI> ::= _ n                            <EQI> ::= ^ n
+        <EQI> ::= _ me                           <EQI> ::= ^ me
+        <EQI> ::= _ ma                           <EQI> ::= ^ ma
+
+        eq s 30
+        ma s 31
+        me s 32
+        n s 33
+        <EQI> g 35
+
+
+State 16
+        Prior States: 2
+
+        <OPC> ::= se <CQE> _ ie <OPS> fs         <OPC> ::= se <CQE> ^ ie <OPS> fs
+
+        ie s 36
+
+
+State 17
+        Prior States: 3, 4, 17, 18
+
+        <A> ::= x _ <A>                          <A> ::= x ^ <A>
+        <A> ::= _ x <A>                          <A> ::= ^ x <A>
+        <A> ::= _ y <A>                          <A> ::= ^ y <A>
+        <A> ::= _                                <A> ::= ^
+
+        x s 17
+        y s 18
+        <A> g 37
+        '-' r 35
+        '*' r 35
+        '/' r 35
+        '+' r 35
+        '=' r 35
+        eq r 35
+        fa r 35
+        ie r 35
+        is r 35
+        ma r 35
+        me r 35
+        n r 35
+
+
+State 18
+        Prior States: 3, 4, 17, 18
+
+        <A> ::= y _ <A>                          <A> ::= y ^ <A>
+        <A> ::= _ x <A>                          <A> ::= ^ x <A>
+        <A> ::= _ y <A>                          <A> ::= ^ y <A>
+        <A> ::= _                                <A> ::= ^
+
+        x s 17
+        y s 18
+        <A> g 38
+        '-' r 35
+        '*' r 35
+        '/' r 35
+        '+' r 35
+        '=' r 35
+        eq r 35
+        fa r 35
+        ie r 35
+        is r 35
+        ma r 35
+        me r 35
+        n r 35
+
+
+State 19
+        Prior States: 3
+
+        <VAR> ::= x <A> _                        <VAR> ::= x <A> ^
+
+        '-' r 31
+        '*' r 31
+        '/' r 31
+        '+' r 31
+        '=' r 31
+        eq r 31
+        fa r 31
+        ie r 31
+        is r 31
+        ma r 31
+        me r 31
+        n r 31
+
+
+State 20
+        Prior States: 4
+
+        <VAR> ::= y <A> _                        <VAR> ::= y <A> ^
+
+        '-' r 32
+        '*' r 32
+        '/' r 32
+        '+' r 32
+        '=' r 32
+        eq r 32
+        fa r 32
+        ie r 32
+        is r 32
+        ma r 32
+        me r 32
+        n r 32
+
+
+State 21
+        Prior States: 5
+
+        <OPS> ::= <ATR> <OPS> _                  <OPS> ::= <ATR> <OPS> ^
+
+        (EOF) r 3
+        fe r 3
+        fs r 3
+
+
+State 22
+        Prior States: 6
+
+        <OPS> ::= <OPC> <OPS> _                  <OPS> ::= <OPC> <OPS> ^
+
+        (EOF) r 1
+        fe r 1
+        fs r 1
+
+
+State 23
+        Prior States: 7
+
+        <OPS> ::= <OPR> <OPS> _                  <OPS> ::= <OPR> <OPS> ^
+
+        (EOF) r 2
+        fe r 2
+        fs r 2
+
+
+State 24
+        Prior States: 10
+
+        <ATR> ::= <VAR> '=' _ <OPA> fa           <ATR> ::= <VAR> '=' ^ <OPA> fa
+        <ATR> ::= <VAR> '=' _ <VAR> fa           <ATR> ::= <VAR> '=' ^ <VAR> fa
+        <ATR> ::= <VAR> '=' _ <NUM> fa           <ATR> ::= <VAR> '=' ^ <NUM> fa
+        <OPA> ::= _ <VAR> <OPE> <VAR>            <OPA> ::= ^ <VAR> <OPE> <VAR>
+        <OPA> ::= _ <VAR> <OPE> <NUM>            <OPA> ::= ^ <VAR> <OPE> <NUM>
+        <OPA> ::= _ <NUM> <OPE> <VAR>            <OPA> ::= ^ <NUM> <OPE> <VAR>
+        <OPA> ::= _ <NUM> <OPE> <NUM>            <OPA> ::= ^ <NUM> <OPE> <NUM>
+        <NUM> ::= _ '0' <N>                      <NUM> ::= ^ '0' <N>
+        <NUM> ::= _ '1' <N>                      <NUM> ::= ^ '1' <N>
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        '0' s 11
+        '1' s 12
+        x s 3
+        y s 4
+        <NUM> g 39
+        <OPA> g 40
+        <VAR> g 41
+
+
+State 25
+        Prior States: 11, 12, 25, 26
+
+        <N> ::= '0' _ <N>                        <N> ::= '0' ^ <N>
+        <N> ::= _ '0' <N>                        <N> ::= ^ '0' <N>
+        <N> ::= _ '1' <N>                        <N> ::= ^ '1' <N>
+        <N> ::= _                                <N> ::= ^
+
+        '0' s 25
+        '1' s 26
+        <N> g 42
+        '-' r 30
+        '*' r 30
+        '/' r 30
+        '+' r 30
+        eq r 30
+        fa r 30
+        ie r 30
+        is r 30
+        ma r 30
+        me r 30
+        n r 30
+
+
+State 26
+        Prior States: 11, 12, 25, 26
+
+        <N> ::= '1' _ <N>                        <N> ::= '1' ^ <N>
+        <N> ::= _ '0' <N>                        <N> ::= ^ '0' <N>
+        <N> ::= _ '1' <N>                        <N> ::= ^ '1' <N>
+        <N> ::= _                                <N> ::= ^
+
+        '0' s 25
+        '1' s 26
+        <N> g 43
+        '-' r 30
+        '*' r 30
+        '/' r 30
+        '+' r 30
+        eq r 30
+        fa r 30
+        ie r 30
+        is r 30
+        ma r 30
+        me r 30
+        n r 30
+
+
+State 27
+        Prior States: 11
+
+        <NUM> ::= '0' <N> _                      <NUM> ::= '0' <N> ^
+
+        '-' r 26
+        '*' r 26
+        '/' r 26
+        '+' r 26
+        eq r 26
+        fa r 26
+        ie r 26
+        is r 26
+        ma r 26
+        me r 26
+        n r 26
+
+
+State 28
+        Prior States: 12
+
+        <NUM> ::= '1' <N> _                      <NUM> ::= '1' <N> ^
+
+        '-' r 27
+        '*' r 27
+        '/' r 27
+        '+' r 27
+        eq r 27
+        fa r 27
+        ie r 27
+        is r 27
+        ma r 27
+        me r 27
+        n r 27
+
+
+State 29
+        Prior States: 13
+
+        <OPR> ::= enq <CQE> is _ <OPS> fe        <OPR> ::= enq <CQE> is ^ <OPS> fe
+        <OPS> ::= _ <OPC> <OPS>                  <OPS> ::= ^ <OPC> <OPS>
+        <OPS> ::= _ <OPR> <OPS>                  <OPS> ::= ^ <OPR> <OPS>
+        <OPS> ::= _ <ATR> <OPS>                  <OPS> ::= ^ <ATR> <OPS>
+        <OPS> ::= _                              <OPS> ::= ^
+        <OPC> ::= _ se <CQE> ie <OPS> fs         <OPC> ::= ^ se <CQE> ie <OPS> fs
+        <OPR> ::= _ enq <CQE> is <OPS> fe        <OPR> ::= ^ enq <CQE> is <OPS> fe
+        <ATR> ::= _ <VAR> '=' <OPA> fa           <ATR> ::= ^ <VAR> '=' <OPA> fa
+        <ATR> ::= _ <VAR> '=' <VAR> fa           <ATR> ::= ^ <VAR> '=' <VAR> fa
+        <ATR> ::= _ <VAR> '=' <NUM> fa           <ATR> ::= ^ <VAR> '=' <NUM> fa
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        enq s 1
+        se s 2
+        x s 3
+        y s 4
+        <ATR> g 5
+        <OPC> g 6
+        <OPR> g 7
+        <OPS> g 44
+        <VAR> g 10
+        fe r 4
+
+
+State 30
+        Prior States: 14, 15
+
+        <EQI> ::= eq _                           <EQI> ::= eq ^
+
+        '0' r 14
+        '1' r 14
+        x r 14
+        y r 14
+
+
+State 31
+        Prior States: 14, 15
+
+        <EQI> ::= ma _                           <EQI> ::= ma ^
+
+        '0' r 17
+        '1' r 17
+        x r 17
+        y r 17
+
+
+State 32
+        Prior States: 14, 15
+
+        <EQI> ::= me _                           <EQI> ::= me ^
+
+        '0' r 16
+        '1' r 16
+        x r 16
+        y r 16
+
+
+State 33
+        Prior States: 14, 15
+
+        <EQI> ::= n _                            <EQI> ::= n ^
+
+        '0' r 15
+        '1' r 15
+        x r 15
+        y r 15
+
+
+State 34
+        Prior States: 14
+
+        <CQE> ::= <NUM> <EQI> _ <VAR>            <CQE> ::= <NUM> <EQI> ^ <VAR>
+        <CQE> ::= <NUM> <EQI> _ <NUM>            <CQE> ::= <NUM> <EQI> ^ <NUM>
+        <NUM> ::= _ '0' <N>                      <NUM> ::= ^ '0' <N>
+        <NUM> ::= _ '1' <N>                      <NUM> ::= ^ '1' <N>
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        '0' s 11
+        '1' s 12
+        x s 3
+        y s 4
+        <NUM> g 45
+        <VAR> g 46
+
+
+State 35
+        Prior States: 15
+
+        <CQE> ::= <VAR> <EQI> _ <VAR>            <CQE> ::= <VAR> <EQI> ^ <VAR>
+        <CQE> ::= <VAR> <EQI> _ <NUM>            <CQE> ::= <VAR> <EQI> ^ <NUM>
+        <NUM> ::= _ '0' <N>                      <NUM> ::= ^ '0' <N>
+        <NUM> ::= _ '1' <N>                      <NUM> ::= ^ '1' <N>
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        '0' s 11
+        '1' s 12
+        x s 3
+        y s 4
+        <NUM> g 47
+        <VAR> g 48
+
+
+State 36
+        Prior States: 16
+
+        <OPC> ::= se <CQE> ie _ <OPS> fs         <OPC> ::= se <CQE> ie ^ <OPS> fs
+        <OPS> ::= _ <OPC> <OPS>                  <OPS> ::= ^ <OPC> <OPS>
+        <OPS> ::= _ <OPR> <OPS>                  <OPS> ::= ^ <OPR> <OPS>
+        <OPS> ::= _ <ATR> <OPS>                  <OPS> ::= ^ <ATR> <OPS>
+        <OPS> ::= _                              <OPS> ::= ^
+        <OPC> ::= _ se <CQE> ie <OPS> fs         <OPC> ::= ^ se <CQE> ie <OPS> fs
+        <OPR> ::= _ enq <CQE> is <OPS> fe        <OPR> ::= ^ enq <CQE> is <OPS> fe
+        <ATR> ::= _ <VAR> '=' <OPA> fa           <ATR> ::= ^ <VAR> '=' <OPA> fa
+        <ATR> ::= _ <VAR> '=' <VAR> fa           <ATR> ::= ^ <VAR> '=' <VAR> fa
+        <ATR> ::= _ <VAR> '=' <NUM> fa           <ATR> ::= ^ <VAR> '=' <NUM> fa
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        enq s 1
+        se s 2
+        x s 3
+        y s 4
+        <ATR> g 5
+        <OPC> g 6
+        <OPR> g 7
+        <OPS> g 49
+        <VAR> g 10
+        fs r 4
+
+
+State 37
+        Prior States: 17
+
+        <A> ::= x <A> _                          <A> ::= x <A> ^
+
+        '-' r 33
+        '*' r 33
+        '/' r 33
+        '+' r 33
+        '=' r 33
+        eq r 33
+        fa r 33
+        ie r 33
+        is r 33
+        ma r 33
+        me r 33
+        n r 33
+
+
+State 38
+        Prior States: 18
+
+        <A> ::= y <A> _                          <A> ::= y <A> ^
+
+        '-' r 34
+        '*' r 34
+        '/' r 34
+        '+' r 34
+        '=' r 34
+        eq r 34
+        fa r 34
+        ie r 34
+        is r 34
+        ma r 34
+        me r 34
+        n r 34
+
+
+State 39
+        Prior States: 24
+
+        <ATR> ::= <VAR> '=' <NUM> _ fa           <ATR> ::= <VAR> '=' <NUM> ^ fa
+        <OPA> ::= <NUM> _ <OPE> <VAR>            <OPA> ::= <NUM> ^ <OPE> <VAR>
+        <OPA> ::= <NUM> _ <OPE> <NUM>            <OPA> ::= <NUM> ^ <OPE> <NUM>
+        <OPE> ::= _ '+'                          <OPE> ::= ^ '+'
+        <OPE> ::= _ '-'                          <OPE> ::= ^ '-'
+        <OPE> ::= _ '*'                          <OPE> ::= ^ '*'
+        <OPE> ::= _ '/'                          <OPE> ::= ^ '/'
+
+        '-' s 50
+        '*' s 51
+        '/' s 52
+        '+' s 53
+        fa s 54
+        <OPE> g 55
+
+
+State 40
+        Prior States: 24
+
+        <ATR> ::= <VAR> '=' <OPA> _ fa           <ATR> ::= <VAR> '=' <OPA> ^ fa
+
+        fa s 56
+
+
+State 41
+        Prior States: 24
+
+        <ATR> ::= <VAR> '=' <VAR> _ fa           <ATR> ::= <VAR> '=' <VAR> ^ fa
+        <OPA> ::= <VAR> _ <OPE> <VAR>            <OPA> ::= <VAR> ^ <OPE> <VAR>
+        <OPA> ::= <VAR> _ <OPE> <NUM>            <OPA> ::= <VAR> ^ <OPE> <NUM>
+        <OPE> ::= _ '+'                          <OPE> ::= ^ '+'
+        <OPE> ::= _ '-'                          <OPE> ::= ^ '-'
+        <OPE> ::= _ '*'                          <OPE> ::= ^ '*'
+        <OPE> ::= _ '/'                          <OPE> ::= ^ '/'
+
+        '-' s 50
+        '*' s 51
+        '/' s 52
+        '+' s 53
+        fa s 57
+        <OPE> g 58
+
+
+State 42
+        Prior States: 25
+
+        <N> ::= '0' <N> _                        <N> ::= '0' <N> ^
+
+        '-' r 28
+        '*' r 28
+        '/' r 28
+        '+' r 28
+        eq r 28
+        fa r 28
+        ie r 28
+        is r 28
+        ma r 28
+        me r 28
+        n r 28
+
+
+State 43
+        Prior States: 26
+
+        <N> ::= '1' <N> _                        <N> ::= '1' <N> ^
+
+        '-' r 29
+        '*' r 29
+        '/' r 29
+        '+' r 29
+        eq r 29
+        fa r 29
+        ie r 29
+        is r 29
+        ma r 29
+        me r 29
+        n r 29
+
+
+State 44
+        Prior States: 29
+
+        <OPR> ::= enq <CQE> is <OPS> _ fe        <OPR> ::= enq <CQE> is <OPS> ^ fe
+
+        fe s 59
+
+
+State 45
+        Prior States: 34
+
+        <CQE> ::= <NUM> <EQI> <NUM> _            <CQE> ::= <NUM> <EQI> <NUM> ^
+
+        ie r 13
+        is r 13
+
+
+State 46
+        Prior States: 34
+
+        <CQE> ::= <NUM> <EQI> <VAR> _            <CQE> ::= <NUM> <EQI> <VAR> ^
+
+        ie r 12
+        is r 12
+
+
+State 47
+        Prior States: 35
+
+        <CQE> ::= <VAR> <EQI> <NUM> _            <CQE> ::= <VAR> <EQI> <NUM> ^
+
+        ie r 11
+        is r 11
+
+
+State 48
+        Prior States: 35
+
+        <CQE> ::= <VAR> <EQI> <VAR> _            <CQE> ::= <VAR> <EQI> <VAR> ^
+
+        ie r 10
+        is r 10
+
+
+State 49
+        Prior States: 36
+
+        <OPC> ::= se <CQE> ie <OPS> _ fs         <OPC> ::= se <CQE> ie <OPS> ^ fs
+
+        fs s 60
+
+
+State 50
+        Prior States: 39, 41
+
+        <OPE> ::= '-' _                          <OPE> ::= '-' ^
+
+        '0' r 23
+        '1' r 23
+        x r 23
+        y r 23
+
+
+State 51
+        Prior States: 39, 41
+
+        <OPE> ::= '*' _                          <OPE> ::= '*' ^
+
+        '0' r 24
+        '1' r 24
+        x r 24
+        y r 24
+
+
+State 52
+        Prior States: 39, 41
+
+        <OPE> ::= '/' _                          <OPE> ::= '/' ^
+
+        '0' r 25
+        '1' r 25
+        x r 25
+        y r 25
+
+
+State 53
+        Prior States: 39, 41
+
+        <OPE> ::= '+' _                          <OPE> ::= '+' ^
+
+        '0' r 22
+        '1' r 22
+        x r 22
+        y r 22
+
+
+State 54
+        Prior States: 39
+
+        <ATR> ::= <VAR> '=' <NUM> fa _           <ATR> ::= <VAR> '=' <NUM> fa ^
+
+        (EOF) r 9
+        enq r 9
+        fe r 9
+        fs r 9
+        se r 9
+        x r 9
+        y r 9
+
+
+State 55
+        Prior States: 39
+
+        <OPA> ::= <NUM> <OPE> _ <VAR>            <OPA> ::= <NUM> <OPE> ^ <VAR>
+        <OPA> ::= <NUM> <OPE> _ <NUM>            <OPA> ::= <NUM> <OPE> ^ <NUM>
+        <NUM> ::= _ '0' <N>                      <NUM> ::= ^ '0' <N>
+        <NUM> ::= _ '1' <N>                      <NUM> ::= ^ '1' <N>
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        '0' s 11
+        '1' s 12
+        x s 3
+        y s 4
+        <NUM> g 61
+        <VAR> g 62
+
+
+State 56
+        Prior States: 40
+
+        <ATR> ::= <VAR> '=' <OPA> fa _           <ATR> ::= <VAR> '=' <OPA> fa ^
+
+        (EOF) r 7
+        enq r 7
+        fe r 7
+        fs r 7
+        se r 7
+        x r 7
+        y r 7
+
+
+State 57
+        Prior States: 41
+
+        <ATR> ::= <VAR> '=' <VAR> fa _           <ATR> ::= <VAR> '=' <VAR> fa ^
+
+        (EOF) r 8
+        enq r 8
+        fe r 8
+        fs r 8
+        se r 8
+        x r 8
+        y r 8
+
+
+State 58
+        Prior States: 41
+
+        <OPA> ::= <VAR> <OPE> _ <VAR>            <OPA> ::= <VAR> <OPE> ^ <VAR>
+        <OPA> ::= <VAR> <OPE> _ <NUM>            <OPA> ::= <VAR> <OPE> ^ <NUM>
+        <NUM> ::= _ '0' <N>                      <NUM> ::= ^ '0' <N>
+        <NUM> ::= _ '1' <N>                      <NUM> ::= ^ '1' <N>
+        <VAR> ::= _ x <A>                        <VAR> ::= ^ x <A>
+        <VAR> ::= _ y <A>                        <VAR> ::= ^ y <A>
+
+        '0' s 11
+        '1' s 12
+        x s 3
+        y s 4
+        <NUM> g 63
+        <VAR> g 64
+
+
+State 59
+        Prior States: 44
+
+        <OPR> ::= enq <CQE> is <OPS> fe _        <OPR> ::= enq <CQE> is <OPS> fe ^
+
+        (EOF) r 6
+        enq r 6
+        fe r 6
+        fs r 6
+        se r 6
+        x r 6
+        y r 6
+
+
+State 60
+        Prior States: 49
+
+        <OPC> ::= se <CQE> ie <OPS> fs _         <OPC> ::= se <CQE> ie <OPS> fs ^
+
+        (EOF) r 5
+        enq r 5
+        fe r 5
+        fs r 5
+        se r 5
+        x r 5
+        y r 5
+
+
+State 61
+        Prior States: 55
+
+        <OPA> ::= <NUM> <OPE> <NUM> _            <OPA> ::= <NUM> <OPE> <NUM> ^
+
+        fa r 21
+
+
+State 62
+        Prior States: 55
+
+        <OPA> ::= <NUM> <OPE> <VAR> _            <OPA> ::= <NUM> <OPE> <VAR> ^
+
+        fa r 20
+
+
+State 63
+        Prior States: 58
+
+        <OPA> ::= <VAR> <OPE> <NUM> _            <OPA> ::= <VAR> <OPE> <NUM> ^
+
+        fa r 19
+
+
+State 64
+        Prior States: 58
+
+        <OPA> ::= <VAR> <OPE> <VAR> _            <OPA> ::= <VAR> <OPE> <VAR> ^
+
+        fa r 18
+
+
+
+
+========================================
+System Log
+========================================
+
+Grammar        Success           The grammar was successfully analyzed
+LALR States    Success           LALR Table was succesfully created
+
+

@@ -4,11 +4,9 @@
 #define ESPACO_LIVRE "-1"
 #define ESTADO_INICIO "0"
 
-
 #include <bits/stdc++.h>
 #include "func.h"
 #include "gerador_LALR.h"
-
 using namespace std;
 
 class Analisador_sintatico : public Objeto_base {
@@ -30,13 +28,12 @@ private:
 	string LALR_acao[TAMANHO_LINHA_TAB_LALR][TAMANHO_COLUNA_TAB_LALR];
 	string LALR_transicao[TAMANHO_LINHA_TAB_LALR][TAMANHO_COLUNA_TAB_LALR];
 	string pilha[TAMANHO_PILHA];
+	string top_pilha();
+	string encontrar_acao_LALR(string, int);
+	
 	
 	void inicializar_pilha();
 	void analise_sintatica();
-
-	string top_pilha();
-	string encontrar_acao_LALR(string, int);
-
 	int retorna_numero(string str);
 	void exibe_fita_saida();
 	void exibe_pilha();

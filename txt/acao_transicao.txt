@@ -11,6 +11,7 @@ br
 1
 enq
 eq
+fa
 fe
 fs
 ie
@@ -33,6 +34,5 @@ OPC
 OPE
 OPR
 OPS
-REC
 S
 VAR

@@ -103,7 +103,6 @@ void Analizador_lexico::analise_lexica() {
 					}
 				}
 				else {
-
 					//quando uma transiacao por S tem apenas uma
 					estado_corrente = automato[posicao_estado_linha][posicao_caracter_coluna];
 				}
@@ -137,7 +136,7 @@ void Analizador_lexico::analise_lexica() {
 				// encontra o identificador do token para caso de erro
 				// # é o estado de erro
 				else { 
-					
+
 					token_id = retorna_id_token("#");
 					fita_saida[contador_fita_saida] = to_string(token_id);
 					fita_erro[contador_fita_erro].append("Error na linha " + to_string(contador_linha) + ". Token inválido: " + token_atual);
@@ -178,7 +177,7 @@ void Analizador_lexico::exibir_fita_saida() {
 	int len = sizeof fita_saida / sizeof fita_saida[0];;
 	
 	for (int i = 0; i < len; i++) {
- 
+		
 		if (fita_saida[i] != "") {
 			trim(fita_saida[i]);
 			cout << fita_saida[i] << " ";

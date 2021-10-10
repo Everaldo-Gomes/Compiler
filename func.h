@@ -9,6 +9,7 @@
 #define TAMANHO_COLUNA_TAB_LALR 100
 #define TAMANHO_LINHA_TAB_LALR 100
 #define COUT_SIZE 9
+#define QNT_ESTADOS 64
 
 #include <string.h>
 #include <boost/algorithm/string.hpp>

@@ -1,22 +1,12 @@
-S = OPS
 OPS = OPC OPS
 OPS = OPR OPS
 OPS = ATR OPS
 OPS = -1
 OPC = se CQE ie OPS fs
 OPR = enq CQE is OPS fe
-ATR = VAR REC OPA
-ATR = VAR REC VAR
-ATR = VAR REC NUM
-REC = =
-OPA = VAR OPE VAR
-OPA = VAR OPE NUM
-OPA = NUM OPE VAR
-OPA = NUM OPE NUM
-OPE = +
-OPE = -
-OPE = *
-OPE = /
+ATR = VAR = OPA fa
+ATR = VAR = VAR fa
+ATR = VAR = NUM fa
 CQE = VAR EQI VAR
 CQE = VAR EQI NUM
 CQE = NUM EQI VAR
@@ -25,6 +15,14 @@ EQI = eq
 EQI = n
 EQI = me
 EQI = ma
+OPA = VAR OPE VAR
+OPA = VAR OPE NUM
+OPA = NUM OPE VAR
+OPA = NUM OPE NUM
+OPE = +
+OPE = -
+OPE = *
+OPE = /
 NUM = 0 N
 NUM = 1 N
 N = 0 N
