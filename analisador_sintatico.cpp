@@ -45,15 +45,14 @@ void Analisador_sintatico::analise_sintatica() {
 	inicializar_pilha();
 	
 	int posicao_id = 0, topo_pilha = 0;
-	string terminal;
+	string terminal = "";
 
-	exibe_pilha();
-	exibe_fita_saida();
-	cout << "---------------------------------------\n";
-	
-	//for(int i = 0; i < TAMANHO_FITA_SAIDA; i++) {
 	int contador = 0, encerrar = 0;
 	while(!encerrar) {
+
+		exibe_pilha();
+		exibe_fita_saida();
+		cout << "---------------------------------------";
 
 		// converte os IDs do linha_aux na fita de saida para inteiros
 		if (fita[contador] == "$") {
@@ -65,7 +64,8 @@ void Analisador_sintatico::analise_sintatica() {
 		terminal = identificadores[posicao_id];
 		topo_pilha = stoi(top_pilha());  
 
-		string acao = encontrar_acao_LALR(terminal, topo_pilha);
+		string acao = "";
+		acao = encontrar_acao_LALR(terminal, topo_pilha);
 
 		// interpretando a ação: empilhamento, redução ou aceite
 		int acao_numero = retorna_numero(acao);
@@ -78,18 +78,16 @@ void Analisador_sintatico::analise_sintatica() {
 			reducao(acao_numero);
 		}
 		else if (acao[0] == 'a') { //aceite
-			cout << "ACEITOU :D \n";
+			cout << "\nACEITOU :D \n";
 			encerrar = 1;
 		}
 		else { // erro
-			cout << "Erro sintatico :( \n";
+			cout << "\nErro sintatico :( \n";
 			encerrar = 1;
 		}
 
-		exibe_pilha();
-		exibe_fita_saida();
-		cout << "-------------------------------------------------\n";
-
+		terminal.clear();
+		acao.clear();
 	}
 }
 
@@ -99,9 +97,8 @@ string Analisador_sintatico::top_pilha() {
 	string simbolo = "";
 	
 	for (int i = TAMANHO_PILHA-1; i >= 0; i--) {
-		//cout << pilha[i] << " ";
-		if (pilha[i] != ESPACO_LIVRE) {
 
+		if (pilha[i] != ESPACO_LIVRE) {
 			simbolo = pilha[i];
 			break;
 		}
@@ -119,7 +116,6 @@ void Analisador_sintatico::inicializar_pilha() {
 	pilha[0] = ESTADO_INICIO;
 	
 	for(int i = 1; i < TAMANHO_PILHA; i++) {
-
 		pilha[i] = ESPACO_LIVRE;
 	}
 }
@@ -129,13 +125,12 @@ string Analisador_sintatico::encontrar_acao_LALR(string terminal, int topo_pilha
 
 	int coluna_LALR_acao = gerar_LALR->encontrar_coluna_terminal(terminal);
 
-
 	//+1 porque 0 é o cabeçalho
 	return LALR_acao[topo_pilha+1][coluna_LALR_acao];
 }
 
 int Analisador_sintatico::retorna_numero(string str) {
-
+	
 	if (str == "") return 0; //previne erro ao passar string vazia
 	
 	string retorno = "";
@@ -184,7 +179,8 @@ void Analisador_sintatico::exibe_pilha() {
 // empilha apenas terminais
 void Analisador_sintatico::empilha(int acao) {
 
-	string terminal_a_ser_empilhado = ESPACO_LIVRE;
+	string terminal_a_ser_empilhado = "";
+	terminal_a_ser_empilhado = ESPACO_LIVRE;
 	
 	// remove o terminal da fita
 	for (int i = 0; i < TAMANHO_FITA_SAIDA; i++) {
@@ -216,9 +212,9 @@ void Analisador_sintatico::empilha(int acao) {
 
 int Analisador_sintatico::reducao(int numero_acao) {
 	
-	cout << "Nome regra: " << nome_regra_producao(numero_acao) << "\n";
-	cout << "tamanho regra: " << tamanho_producao(numero_acao) << "\n";
-	cout << "Nº Acao: " << numero_acao << "\n";
+	// cout << "Nome regra: " << nome_regra_producao(numero_acao) << "\n";
+	// cout << "tamanho regra: " << tamanho_producao(numero_acao) << "\n";
+	// cout << "Nº Acao: " << numero_acao << "\n";
 	
 	int tamanho_reducao = tamanho_producao(numero_acao) * 2;
 	string nome_regra = nome_regra_producao(numero_acao);
@@ -235,15 +231,13 @@ int Analisador_sintatico::reducao(int numero_acao) {
 	//+1 porque 0 é o cabeçalho, string retornada do goldparset Ex: g10
 	string transicao = gerar_LALR->LALR_transicao[topo_pilha+1][coluna_transicao]; 
 
-	// empilhada o estado após reducao
+	// empilha o estado após reducao
 	empilha_estado_apos_reducao(nome_regra, to_string(retorna_numero(transicao)));
 
-
-
-	cout << "TOPO pilha: " << topo_pilha <<"\n"
-	 	 << "Transicao: " << coluna_transicao << "\n"
-	 	 << "Estado: " << transicao << "\n"
-	 	 << "Estado Int: " << retorna_numero(transicao);
+	// cout << "TOPO pilha: " << topo_pilha <<"\n"
+	//  	 << "Transicao: " << coluna_transicao << "\n"
+	//  	 << "Estado: " << transicao << "\n"
+	//  	 << "Estado Int: " << retorna_numero(transicao);
 
 	return tamanho_reducao;
 }	
@@ -270,11 +264,12 @@ void Analisador_sintatico::empilha_estado_apos_reducao(string nome_regra, string
 void Analisador_sintatico::reduz_pilha(int tamnanho_reducao) {
 
 	int quantidade_reduzida = 0;
-
+	//cout << "reduzindo a pilha: ";
+	
 	for (int i = TAMANHO_PILHA-1; i >= 0; i--) {
 
 		if (pilha[i] != ESPACO_LIVRE) {
-
+			//cout << pilha[i] << " ";
 			pilha[i] = ESPACO_LIVRE;
 			quantidade_reduzida++;
 		}
@@ -287,24 +282,25 @@ void Analisador_sintatico::reduz_pilha(int tamnanho_reducao) {
 
 int Analisador_sintatico::tamanho_producao(int numero_regra) {
 
-	FILE* arquivo = fopen("./txt/reducao.txt","rt");
+	FILE* arquivo = fopen("./txt/reducao.txt","r");
+	fseek (arquivo, 0, SEEK_SET);
 
-	char linha[30]; 
+	//char linha[30]; 
 	char linha_aux[30];
-	string regra_atual = "";
 	int contador_linha = 0, contador_espaco_vazio = 0, primeiro_igual = 0;
 
-	while(fgets(linha, 30, arquivo)) {
+	while(fgets(linha_aux, 30, arquivo)) {
 		
 		if (contador_linha == numero_regra) {
-			cout << "LInha: " << linha << "\n";
-			sscanf(linha, "%s", linha_aux); //copia conteúdo da linha para o "linha_aux"
-			strcpy(linha_aux,linha); //ajuste
-
+			//cout << "LInha: " << linha << "\n";
+			//memset(linha_aux, '\0', 30);
+			//sscanf(linha, "%s", linha_aux); //copia conteúdo da linha para o "linha_aux"
+			//strcpy(linha_aux,linha); //ajuste
+			
 			//percorre a linha lida
 			for (int i = 0; linha_aux[i] != '\n'; i++) {
 				
-				if (linha[i] == '=') {
+				if (linha_aux[i] == '=') {
 					primeiro_igual = 1;
 				}
 
@@ -316,40 +312,46 @@ int Analisador_sintatico::tamanho_producao(int numero_regra) {
 			break;
 		}
 		contador_linha++;
+		memset(linha_aux, '\0', 30);
 	}
 
+	fseek (arquivo, 0, SEEK_SET);
 	fclose(arquivo);
 	return contador_espaco_vazio;
 }
 
 string Analisador_sintatico::nome_regra_producao(int numero_regra) {
 
-	FILE* arquivo = fopen("./txt/reducao.txt","rt");
-
-	char linha[30]; 
+	FILE* arquivo = fopen("./txt/reducao.txt","r");
+	fseek (arquivo, 0, SEEK_SET);
+	//char linha[30]; 
 	char linha_aux[30];
 	string regra_atual = "";
 	int contador_linha = 0;
 
-	while(fgets(linha, 30, arquivo)) {
+	while(fgets(linha_aux, 30, arquivo)) {
 		
 		if (contador_linha == numero_regra) {
 
-			sscanf(linha, "%s", linha_aux); //copia conteúdo da linha para o "linha_aux"
-			strcpy(linha_aux,linha); //ajuste
+			//memset(linha_aux, '\0', 30);
+			//sscanf(linha, "%s", linha_aux); //copia conteúdo da linha para o "linha_aux"
+			//strcpy(linha_aux,linha); //ajuste
 		    
 			//percorre a linha lida
 			for (int i = 0; linha_aux[i] != ' '; i++) {
 				
 				string caracter_atual(1, linha_aux[i]);
 				regra_atual += caracter_atual;
+				caracter_atual.clear();
 			}
 			
 			break;
 		}
 		contador_linha++;
+		memset(linha_aux, '\0', 30);
 	}
-	
+
+	fseek (arquivo, 0, SEEK_SET);
 	fclose(arquivo);
 	return regra_atual;
 }
