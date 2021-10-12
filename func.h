@@ -2,7 +2,7 @@
 #define FUNC_H
 
 #define QNT_SIMBOLO 30
-#define LINHA 30
+#define LINHA 31
 #define COLUNA 19
 #define sinal_erro "$"
 #define TAMANHO_FITA_SAIDA 100

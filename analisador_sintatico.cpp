@@ -46,12 +46,20 @@ void Analisador_sintatico::analise_sintatica() {
 	
 	int posicao_id = 0, topo_pilha = 0;
 	string terminal;
+
+	exibe_pilha();
+	exibe_fita_saida();
+	cout << "---------------------------------------\n";
 	
-	for(int i = 0; i < TAMANHO_FITA_SAIDA; i++) {
-		
+	//for(int i = 0; i < TAMANHO_FITA_SAIDA; i++) {
+	int contador = 0, encerrar = 0;
+	while(!encerrar) {
+
 		// converte os IDs do linha_aux na fita de saida para inteiros
-		if (fita[i] == "$") { break; }
-		posicao_id = stoi(fita[i]); // recebe o próprio índice para encontrar o token na LALR
+		if (fita[contador] == "$") {
+			fita[contador] = "0";
+		}
+		posicao_id = stoi(fita[contador]); // recebe o próprio índice para encontrar o token na LALR
 		
 		//obtem o topo da pilha e o início da fita
 		terminal = identificadores[posicao_id];
@@ -64,29 +72,34 @@ void Analisador_sintatico::analise_sintatica() {
 		
 		if (acao[0] == 's') {     //empilhamento
 			empilha(acao_numero);
+			contador++;
 		}
 		else if (acao[0] == 'r') { //redução
-			reducao(acao_numero);	
+			reducao(acao_numero);
 		}
 		else if (acao[0] == 'a') { //aceite
-
+			cout << "ACEITOU :D \n";
+			encerrar = 1;
 		}
 		else { // erro
-			
+			cout << "Erro sintatico :( \n";
+			encerrar = 1;
 		}
 
-		exibe_fita_saida();
 		exibe_pilha();
+		exibe_fita_saida();
+		cout << "-------------------------------------------------\n";
+
 	}
 }
 
 // retorna o top da pilha
 string Analisador_sintatico::top_pilha() {
 
-	string simbolo = "0";
+	string simbolo = "";
 	
 	for (int i = TAMANHO_PILHA-1; i >= 0; i--) {
-
+		//cout << pilha[i] << " ";
 		if (pilha[i] != ESPACO_LIVRE) {
 
 			simbolo = pilha[i];
@@ -161,7 +174,8 @@ void Analisador_sintatico::exibe_pilha() {
 	for (int i = 0; i < TAMANHO_PILHA; i++) {
 		
 		if (pilha[i] != ESPACO_LIVRE && pilha[i] != "") {
-			cout << retorna_numero(pilha[i]) << " ";
+			cout << pilha[i] << " ";
+			//cout << retorna_numero(pilha[i]) << " ";
 		}
 	}
 	cout << "\n\n";
@@ -200,18 +214,17 @@ void Analisador_sintatico::empilha(int acao) {
 	}
 }
 
-void Analisador_sintatico::reducao(int numero_acao) {
-
-	//numero_acao = 6;  // LEMBRAR DE APAGAR !!
-
+int Analisador_sintatico::reducao(int numero_acao) {
+	
 	cout << "Nome regra: " << nome_regra_producao(numero_acao) << "\n";
 	cout << "tamanho regra: " << tamanho_producao(numero_acao) << "\n";
+	cout << "Nº Acao: " << numero_acao << "\n";
 	
-	int tamnanho_reducao = tamanho_producao(numero_acao) * 2;
+	int tamanho_reducao = tamanho_producao(numero_acao) * 2;
 	string nome_regra = nome_regra_producao(numero_acao);
 
 	// reduz da pilha o valor do tamanho da produção * 2
-	reduz_pilha(tamnanho_reducao);
+	reduz_pilha(tamanho_reducao);
 
 	//retorna top_pilha
 	short topo_pilha = stoi(top_pilha());  
@@ -226,10 +239,13 @@ void Analisador_sintatico::reducao(int numero_acao) {
 	empilha_estado_apos_reducao(nome_regra, to_string(retorna_numero(transicao)));
 
 
-	// cout << "TOPO pilha: " << topo_pilha <<"\n"
-	// 	 <<"Transicao: " << coluna_transicao << "\n"
-	// 	 << "Estado: " << transicao << "\n"
-	// 	 << "Estado Int: " << retorna_numero(transicao);
+
+	cout << "TOPO pilha: " << topo_pilha <<"\n"
+	 	 << "Transicao: " << coluna_transicao << "\n"
+	 	 << "Estado: " << transicao << "\n"
+	 	 << "Estado Int: " << retorna_numero(transicao);
+
+	return tamanho_reducao;
 }	
 
 void Analisador_sintatico::empilha_estado_apos_reducao(string nome_regra, string estado) {
@@ -281,7 +297,7 @@ int Analisador_sintatico::tamanho_producao(int numero_regra) {
 	while(fgets(linha, 30, arquivo)) {
 		
 		if (contador_linha == numero_regra) {
-
+			cout << "LInha: " << linha << "\n";
 			sscanf(linha, "%s", linha_aux); //copia conteúdo da linha para o "linha_aux"
 			strcpy(linha_aux,linha); //ajuste
 
@@ -302,6 +318,7 @@ int Analisador_sintatico::tamanho_producao(int numero_regra) {
 		contador_linha++;
 	}
 
+	fclose(arquivo);
 	return contador_espaco_vazio;
 }
 
@@ -320,9 +337,7 @@ string Analisador_sintatico::nome_regra_producao(int numero_regra) {
 
 			sscanf(linha, "%s", linha_aux); //copia conteúdo da linha para o "linha_aux"
 			strcpy(linha_aux,linha); //ajuste
-			
-			
-
+		    
 			//percorre a linha lida
 			for (int i = 0; linha_aux[i] != ' '; i++) {
 				
@@ -334,6 +349,7 @@ string Analisador_sintatico::nome_regra_producao(int numero_regra) {
 		}
 		contador_linha++;
 	}
-
+	
+	fclose(arquivo);
 	return regra_atual;
 }

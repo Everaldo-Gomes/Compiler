@@ -178,7 +178,7 @@ void Gerador_automato::gerar_simbolo_glc() {
 		string aux(1, ch); 
 
 		// quando lê a GLC, se for números ou letras minúsculas adiciona aos símbolos da
-		// linguagem
+		// linguagem, lê o arquivo novamente do começo mas sempre verifica se já foi adicionado
 		
 		if (isdigit(ch) || islower(ch)) {			
 

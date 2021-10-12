@@ -1,0 +1,17 @@
+0		 								yx = 01 * xx fa 
+0 y 4 									x = 01 * xx fa
+0 VAR 10								= 01 * xx fa
+0 VAR 10 = 24							01 * xx fa
+0 VAR 10 = 24 0 11						1 * xx fa
+0 VAR 10 = 24 NUM 39        			* xx fa
+0 VAR 10 = 24 NUM 39 OPE    			xx fa
+0 VAR 10 = 24 NUM 39 OPE 55    			xx fa
+0 VAR 10 = 24 NUM 39 OPE 55 x 3 		x fa
+0 VAR 10 = 24 NUM 39 OPE 55 x 3 x 17    fa
+0 VAR 10 = 24 NUM 39 OPE 55 x 3 A 19    fa
+0 VAR 10 = 24 NUM 39 OPE 55 VAR 62	    fa
+0 VAR 10 = 24 OPA 40				    fa 
+0 VAR 10 = 24 OPA 40 fa 56				$
+0 ATR 5									$
+0 OPS 8									$
+0 S 9									$  ACEITO

@@ -23,4 +23,10 @@ int main () {
 
 	return 0;
 }
-
+/*
+	enq xx ma yy ie
+	se yy me xx is
+		
+	fs
+fe
+	*/

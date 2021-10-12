@@ -1,3 +1,4 @@
+S = OPS
 OPS = OPC OPS
 OPS = OPR OPS
 OPS = ATR OPS

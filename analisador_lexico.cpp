@@ -120,16 +120,38 @@ void Analizador_lexico::analise_lexica() {
 					// encontra o identificador do token para caso de aceitação
 					token_id = retorna_id_token(token_atual);
 
+					if (token_id != -1) {
+						fita_saida[contador_fita_saida] = to_string(token_id);
+					}
+					else {
+						for (unsigned int k = 0; k < token_atual.size(); k++) {
+							string variavel_ou_numero(1, token_atual[k]);
+							trim(variavel_ou_numero);
+							fita_saida[contador_fita_saida++] = to_string(retorna_id_token(variavel_ou_numero));
+							variavel_ou_numero.clear();
+						}
+						contador_fita_saida--;
+					}
+					
+/*
 					// se não encontrou (-1) então é numero ou variável
 					if (token_id == -1 && isdigit(token_atual[0])) { // se for dígito é numero
 
-						token_id = retorna_id_token("numeros");
+						for (int k = 0; k < token_atual.size(); k++) {
+							string numero(1, token_atual[k]);
+							fita_saida[contador_fita_saida++] = retorna_id_token(numero);
+						}
+						//token_id = retorna_id_token("numeros");
 					}
 					else if (token_id == -1) {
-						token_id = retorna_id_token("variaveis"); // se não, é variável
+						//token_id = retorna_id_token("variaveis"); // se não, é variável
+						for (int k = 0; k < token_atual.size(); k++) {
+							string variavel(1, token_atual[k]);
+							fita_saida[contador_fita_saida++] = retorna_id_token(variavel);
+						}
 					}
-					
-					fita_saida[contador_fita_saida] = to_string(token_id);
+					*/
+					//fita_saida[contador_fita_saida] = to_string(token_id);
 					// valor passado anteriormente: "estado_corrente"
 				}
 				
@@ -188,7 +210,7 @@ void Analizador_lexico::exibir_fita_saida() {
 short Analizador_lexico::retorna_id_token(string s) {
 
 	short posicao = -1;
-	int len = sizeof identificadores / sizeof identificadores[0];;
+	int len = sizeof identificadores / sizeof identificadores[0];
 	
 	for (int i = 1; i < len; i++) {
 		if (identificadores[i] == s) {
